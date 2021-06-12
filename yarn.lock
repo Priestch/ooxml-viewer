@@ -1192,6 +1192,162 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
+"@codemirror/autocomplete@^0.18.0":
+  version "0.18.6"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fautocomplete/-/autocomplete-0.18.6.tgz#ba185148f0bac0391d26d29cb737f1d45280e42f"
+  integrity sha1-uhhRSPC6wDkdJtKctzfx1FKA5C8=
+  dependencies:
+    "@codemirror/language" "^0.18.0"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/text" "^0.18.0"
+    "@codemirror/tooltip" "^0.18.4"
+    "@codemirror/view" "^0.18.0"
+    lezer-tree "^0.13.0"
+
+"@codemirror/commands@^0.18.2":
+  version "0.18.2"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fcommands/-/commands-0.18.2.tgz#a90067b1e3127ffe2c1be2daa68c0f4aeda59308"
+  integrity sha1-qQBnseMSf/4sG+LapowPSu2lkwg=
+  dependencies:
+    "@codemirror/language" "^0.18.0"
+    "@codemirror/matchbrackets" "^0.18.0"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/text" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+    lezer-tree "^0.13.0"
+
+"@codemirror/fold@^0.18.1":
+  version "0.18.1"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2ffold/-/fold-0.18.1.tgz#118019ad79f6e0d48dc932823385d4d9f2e0eaf5"
+  integrity sha1-EYAZrXn24NSNyTKCM4XU2fLg6vU=
+  dependencies:
+    "@codemirror/gutter" "^0.18.0"
+    "@codemirror/language" "^0.18.0"
+    "@codemirror/rangeset" "^0.18.0"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+
+"@codemirror/gutter@^0.18.0", "@codemirror/gutter@^0.18.4":
+  version "0.18.4"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fgutter/-/gutter-0.18.4.tgz#6ebdfc87d94b02ffa0ec7bcf40d20f989fe26457"
+  integrity sha1-br38h9lLAv+g7HvPQNIPmJ/iZFc=
+  dependencies:
+    "@codemirror/rangeset" "^0.18.3"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+
+"@codemirror/highlight@^0.18.0", "@codemirror/highlight@^0.18.4":
+  version "0.18.4"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fhighlight/-/highlight-0.18.4.tgz#83dfd402d7cbfe67dc9d0cb93a25755321014829"
+  integrity sha1-g9/UAtfL/mfcnQy5OiV1UyEBSCk=
+  dependencies:
+    "@codemirror/language" "^0.18.0"
+    "@codemirror/rangeset" "^0.18.0"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+    lezer-tree "^0.13.0"
+    style-mod "^4.0.0"
+
+"@codemirror/lang-xml@^0.18.0":
+  version "0.18.0"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2flang-xml/-/lang-xml-0.18.0.tgz#bd45d7207e184dce6e0880088ab698512afc5cbe"
+  integrity sha1-vUXXIH4YTc5uCIAIiraYUSr8XL4=
+  dependencies:
+    "@codemirror/autocomplete" "^0.18.0"
+    "@codemirror/highlight" "^0.18.0"
+    "@codemirror/language" "^0.18.0"
+    "@codemirror/state" "^0.18.0"
+    lezer-tree "^0.13.0"
+    lezer-xml "^0.13.0"
+
+"@codemirror/language@^0.18.0":
+  version "0.18.2"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2flanguage/-/language-0.18.2.tgz#92b0e2ba0debfa8473d805efdabda5c24376cb16"
+  integrity sha1-krDiug3r+oRz2AXv2r2lwkN2yxY=
+  dependencies:
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/text" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+    lezer "^0.13.4"
+    lezer-tree "^0.13.0"
+
+"@codemirror/matchbrackets@^0.18.0":
+  version "0.18.0"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fmatchbrackets/-/matchbrackets-0.18.0.tgz#64a493090d942de19f15a9ed3cb0fa19ed55f18b"
+  integrity sha1-ZKSTCQ2ULeGfFantPLD6Ge1V8Ys=
+  dependencies:
+    "@codemirror/language" "^0.18.0"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+    lezer-tree "^0.13.0"
+
+"@codemirror/panel@^0.18.1":
+  version "0.18.2"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fpanel/-/panel-0.18.2.tgz#f82dd69fc82d752ec5d6269bbdecbbdb8df69529"
+  integrity sha1-+C3Wn8gtdS7F1iabvey72432lSk=
+  dependencies:
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+
+"@codemirror/rangeset@^0.18.0", "@codemirror/rangeset@^0.18.2", "@codemirror/rangeset@^0.18.3":
+  version "0.18.3"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2frangeset/-/rangeset-0.18.3.tgz#78d001f17385cf462647a60f8b15dab11990c2b1"
+  integrity sha1-eNAB8XOFz0YmR6YPixXasRmQwrE=
+  dependencies:
+    "@codemirror/state" "^0.18.0"
+
+"@codemirror/rectangular-selection@^0.18.0":
+  version "0.18.0"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2frectangular-selection/-/rectangular-selection-0.18.0.tgz#87e1a4d319b5d55b4e97294e6df0070164e836c0"
+  integrity sha1-h+Gk0xm11VtOlylObfAHAWToNsA=
+  dependencies:
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/text" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+
+"@codemirror/search@^0.18.4":
+  version "0.18.4"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fsearch/-/search-0.18.4.tgz#cb258c994db78df8c74c0350b84a0c275cfa2711"
+  integrity sha1-yyWMmU23jfjHTANQuEoMJ1z6JxE=
+  dependencies:
+    "@codemirror/panel" "^0.18.1"
+    "@codemirror/rangeset" "^0.18.0"
+    "@codemirror/state" "^0.18.6"
+    "@codemirror/text" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+    crelt "^1.0.5"
+
+"@codemirror/state@^0.18.0", "@codemirror/state@^0.18.6", "@codemirror/state@^0.18.7":
+  version "0.18.7"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fstate/-/state-0.18.7.tgz#3339a732387bb2c034987c57ccf0649ef2f7c4c1"
+  integrity sha1-MzmnMjh7ssA0mHxXzPBknvL3xME=
+  dependencies:
+    "@codemirror/text" "^0.18.0"
+
+"@codemirror/text@^0.18.0":
+  version "0.18.0"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2ftext/-/text-0.18.0.tgz#a4a98862989ccef5545e730b269136d524c6a7c7"
+  integrity sha1-pKmIYpiczvVUXnMLJpE21STGp8c=
+
+"@codemirror/tooltip@^0.18.4":
+  version "0.18.4"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2ftooltip/-/tooltip-0.18.4.tgz#981bc0ced792c6754148edbc1f60092f3fa54207"
+  integrity sha1-mBvAzteSxnVBSO28H2AJLz+lQgc=
+  dependencies:
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+
+"@codemirror/view@^0.18.0", "@codemirror/view@^0.18.16":
+  version "0.18.16"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2fview/-/view-0.18.16.tgz#8cfb8751bd0224df1fa757abebd2ad2113ee1745"
+  integrity sha1-jPuHUb0CJN8fp1er69KtIRPuF0U=
+  dependencies:
+    "@codemirror/rangeset" "^0.18.2"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/text" "^0.18.0"
+    style-mod "^4.0.0"
+    w3c-keyname "^2.2.4"
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -1482,6 +1638,14 @@
     native-url "^0.2.6"
     schema-utils "^2.6.5"
     source-map "^0.7.3"
+
+"@prettier/plugin-xml@^0.13.1":
+  version "0.13.1"
+  resolved "http://bohr.cheftin.cn:4873/@prettier%2fplugin-xml/-/plugin-xml-0.13.1.tgz#fb1c265fb8256c509da187b5a530c3eb2bf80091"
+  integrity sha1-+xwmX7glbFCdoYe1pTDD6yv4AJE=
+  dependencies:
+    "@xml-tools/parser" "^1.0.2"
+    prettier ">=1.10"
 
 "@rollup/plugin-node-resolve@^7.1.1":
   version "7.1.3"
@@ -2249,6 +2413,13 @@
     "@webassemblyjs/ast" "1.9.0"
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
+
+"@xml-tools/parser@^1.0.2":
+  version "1.0.11"
+  resolved "http://bohr.cheftin.cn:4873/@xml-tools%2fparser/-/parser-1.0.11.tgz#a118a14099ea5c3c537e4781fad2fc195b57f8ff"
+  integrity sha1-oRihQJnqXDxTfkeB+tL8GVtX+P8=
+  dependencies:
+    chevrotain "7.1.1"
 
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
@@ -3576,6 +3747,13 @@ check-types@^11.1.1:
   resolved "https://registry.yarnpkg.com/check-types/-/check-types-11.1.2.tgz#86a7c12bf5539f6324eb0e70ca8896c0e38f3e2f"
   integrity sha512-tzWzvgePgLORb9/3a0YenggReLKAIb2owL03H2Xdoe5pKcUyWRSEQ8xfCar8t2SIAuEDwtmx2da1YB52YuHQMQ==
 
+chevrotain@7.1.1:
+  version "7.1.1"
+  resolved "http://bohr.cheftin.cn:4873/chevrotain/-/chevrotain-7.1.1.tgz#5122814eafd1585a9601f9180a7be9c42d5699c6"
+  integrity sha1-USKBTq/RWFqWAfkYCnvpxC1WmcY=
+  dependencies:
+    regexp-to-ast "0.5.0"
+
 chokidar@^2.1.8:
   version "2.1.8"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-2.1.8.tgz#804b3a7b6a99358c3c5c61e71d8728f041cff917"
@@ -4073,6 +4251,11 @@ create-hmac@^1.1.0, create-hmac@^1.1.4, create-hmac@^1.1.7:
     ripemd160 "^2.0.0"
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
+
+crelt@^1.0.5:
+  version "1.0.5"
+  resolved "http://bohr.cheftin.cn:4873/crelt/-/crelt-1.0.5.tgz#57c0d52af8c859e354bace1883eb2e1eb182bb94"
+  integrity sha1-V8DVKvjIWeNUus4Yg+suHrGCu5Q=
 
 cross-env@7.0.3:
   version "7.0.3"
@@ -8059,6 +8242,25 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+lezer-tree@^0.13.0, lezer-tree@^0.13.2:
+  version "0.13.2"
+  resolved "http://bohr.cheftin.cn:4873/lezer-tree/-/lezer-tree-0.13.2.tgz#00f4671309b15c27b131f637e430ce2d4d5f7065"
+  integrity sha1-APRnEwmxXCexMfY35DDOLU1fcGU=
+
+lezer-xml@^0.13.0:
+  version "0.13.4"
+  resolved "http://bohr.cheftin.cn:4873/lezer-xml/-/lezer-xml-0.13.4.tgz#a3a890fd59727deb777d601dfdb0ab8508571efd"
+  integrity sha1-o6iQ/Vlyfet3fWAd/bCrhQhXHv0=
+  dependencies:
+    lezer "^0.13.3"
+
+lezer@^0.13.3, lezer@^0.13.4:
+  version "0.13.5"
+  resolved "http://bohr.cheftin.cn:4873/lezer/-/lezer-0.13.5.tgz#6000536bca7e24a5bd62e8cb4feff28b37e7dd8f"
+  integrity sha1-YABTa8p+JKW9YujLT+/yizfn3Y8=
+  dependencies:
+    lezer-tree "^0.13.2"
+
 lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
@@ -10297,6 +10499,11 @@ prepend-http@^2.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-2.0.0.tgz#e92434bfa5ea8c19f41cdfd401d741a3c819d897"
   integrity sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
 
+prettier@>=1.10, prettier@^2.3.1:
+  version "2.3.1"
+  resolved "http://bohr.cheftin.cn:4873/prettier/-/prettier-2.3.1.tgz#76903c3f8c4449bc9ac597acefa24dc5ad4cbea6"
+  integrity sha1-dpA8P4xESbyaxZes76JNxa1MvqY=
+
 pretty-bytes@^5.3.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
@@ -11217,6 +11424,11 @@ regex-parser@^2.2.11:
   version "2.2.11"
   resolved "https://registry.yarnpkg.com/regex-parser/-/regex-parser-2.2.11.tgz#3b37ec9049e19479806e878cabe7c1ca83ccfe58"
   integrity sha512-jbD/FT0+9MBU2XAZluI7w2OBs1RBi6p9M83nkoZayQXXU9e8Robt69FcZc7wU4eJD/YFTjn1JdCk3rbMJajz8Q==
+
+regexp-to-ast@0.5.0:
+  version "0.5.0"
+  resolved "http://bohr.cheftin.cn:4873/regexp-to-ast/-/regexp-to-ast-0.5.0.tgz#56c73856bee5e1fef7f73a00f1473452ab712a24"
+  integrity sha1-Vsc4Vr7l4f739zoA8Uc0UqtxKiQ=
 
 regexp.prototype.flags@^1.2.0, regexp.prototype.flags@^1.3.1:
   version "1.3.1"
@@ -12510,6 +12722,11 @@ style-loader@1.3.0:
     loader-utils "^2.0.0"
     schema-utils "^2.7.0"
 
+style-mod@^4.0.0:
+  version "4.0.0"
+  resolved "http://bohr.cheftin.cn:4873/style-mod/-/style-mod-4.0.0.tgz#97e7c2d68b592975f2ca7a63d0dd6fcacfe35a01"
+  integrity sha1-l+fC1otZKXXyynpj0N1vys/jWgE=
+
 stylehacks@^4.0.0:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/stylehacks/-/stylehacks-4.0.3.tgz#6718fcaf4d1e07d8a1318690881e8d96726a71d5"
@@ -13323,6 +13540,11 @@ w3c-hr-time@^1.0.2:
   integrity sha512-z8P5DvDNjKDoFIHK7q8r8lackT6l+jo/Ye3HOle7l9nICP9lf1Ci25fy9vHd0JOWewkIFzXIEig3TdKT7JQ5fQ==
   dependencies:
     browser-process-hrtime "^1.0.0"
+
+w3c-keyname@^2.2.4:
+  version "2.2.4"
+  resolved "http://bohr.cheftin.cn:4873/w3c-keyname/-/w3c-keyname-2.2.4.tgz#4ade6916f6290224cdbd1db8ac49eab03d0eef6b"
+  integrity sha1-St5pFvYpAiTNvR24rEnqsD0O72s=
 
 w3c-xmlserializer@^2.0.0:
   version "2.0.0"

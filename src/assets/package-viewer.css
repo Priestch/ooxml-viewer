@@ -3,6 +3,7 @@
   overflow: hidden;
 }
 
-.package-viewer .package-tree {
-
+.package-viewer #package-tree,
+.package-viewer #editor {
+  overflow: auto;
 }
