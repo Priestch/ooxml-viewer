@@ -4,6 +4,8 @@ import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
 
+import './libs/vkbeautify'
+
 ReactDOM.render(
   <App />,
   document.getElementById('root')

@@ -36,7 +36,7 @@ function App() {
       <Modal
         visible={visibility}
         centerd
-        title="Palantir Foundry"
+        title="Select File"
         footer={
           <Button onClick={openDialog}>Open</Button>
         }

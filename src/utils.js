@@ -8,3 +8,7 @@ export function formatXML(value) {
     xmlWhitespaceSensitivity: 'ignore',
   })
 }
+
+export function formatXMLBeautify(value) {
+  return window.vkbeautify.xml(value, 2);
+}

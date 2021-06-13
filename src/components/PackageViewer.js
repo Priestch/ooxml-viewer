@@ -6,13 +6,14 @@ import { xml } from '@codemirror/lang-xml';
 import { lineNumbers } from '@codemirror/gutter';
 import { defaultKeymap } from '@codemirror/commands';
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
+import openxml from 'openxml'
 
 import '../assets/package-viewer.css'
 import { Tree, Layout } from "antd";
 import { foldGutter, foldKeymap } from "@codemirror/fold";
 import { defaultHighlightStyle } from "@codemirror/highlight";
 import { rectangularSelection } from "@codemirror/rectangular-selection";
-import { formatXML } from "../utils";
+import { formatXMLBeautify } from "../utils";
 
 const { Sider, Content } = Layout;
 
@@ -62,8 +63,9 @@ const basicSetup = [
 
 
 function createEditorState(data) {
+  const value = openxml.util.decode_utf8(data);
   return EditorState.create({
-    doc: formatXML(data),
+    doc: formatXMLBeautify(value),
     extensions: [basicSetup, xml()]
   });
 }
@@ -106,7 +108,7 @@ function PackageViewer({ pkg }) {
           onSelect={handleSelect}
         />
       </Sider>
-      <Content id="editor">File</Content>
+      <Content id="editor"></Content>
     </Layout>
   )
 }
