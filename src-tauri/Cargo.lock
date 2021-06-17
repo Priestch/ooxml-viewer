@@ -31,7 +31,6 @@ checksum = "28b2cd92db5cbd74e8e5028f7e27dd7aa3090e89e4f2a197cc7c8dfb69c7063b"
 name = "app"
 version = "0.1.0"
 dependencies = [
- "blob",
  "serde",
  "serde_json",
  "tauri",
@@ -104,15 +103,6 @@ checksum = "cdb031dd78e28731d87d56cc8ffef4a8f36ca26c38fe2de700543e627f8a464a"
 
 [[package]]
 name = "base64"
-version = "0.10.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0b25d992356d2eb0ed82172f5248873db5560c4721f564b13cb5193bda5e668e"
-dependencies = [
- "byteorder",
-]
-
-[[package]]
-name = "base64"
 version = "0.13.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "904dfeac50f3cdaba28fc6f57fdcddb75f49ed61346676a78c4ffe55877802fd"
@@ -163,16 +153,6 @@ dependencies = [
  "crypto-mac",
  "digest",
  "rayon",
-]
-
-[[package]]
-name = "blob"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5039671bc1d96b270d5dac6d39395d6f1b36ae7ee8ac556c0eedb118f16eedbb"
-dependencies = [
- "base64 0.10.1",
- "serde",
 ]
 
 [[package]]
@@ -2397,7 +2377,7 @@ version = "0.11.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2296f2fac53979e8ccbc4a1136b25dcefd37be9ed7e4a1f6b05a6029c84ff124"
 dependencies = [
- "base64 0.13.0",
+ "base64",
  "bytes",
  "encoding_rs",
  "futures-core",
@@ -2456,7 +2436,7 @@ version = "0.8.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4b18820d944b33caa75a71378964ac46f58517c92b6ae5f762636247c09e78fb"
 dependencies = [
- "base64 0.13.0",
+ "base64",
  "blake2b_simd",
  "constant_time_eq",
  "crossbeam-utils",
@@ -2833,8 +2813,7 @@ dependencies = [
 [[package]]
 name = "tao"
 version = "0.2.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ece0608233e93504778f4740457cdd3508966a691de8cedbbc7291f80236250"
+source = "git+https://github.com/tauri-apps/tao.git?branch=dev#52ebebbc5cc2913bb4b50ea7743e9f6be21e6657"
 dependencies = [
  "bitflags 1.2.1",
  "cairo-rs",
@@ -2880,7 +2859,7 @@ version = "1.0.0-beta.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4fdc09779e4396b27ceb28d4ad1a998b0a3bc5f2afa4a563ab84bb4a55afdb77"
 dependencies = [
- "base64 0.13.0",
+ "base64",
  "bincode",
  "bytes",
  "cfg_aliases",
