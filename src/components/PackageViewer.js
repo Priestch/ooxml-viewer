@@ -6,6 +6,7 @@ import { xml } from '@codemirror/lang-xml';
 import { lineNumbers } from '@codemirror/gutter';
 import { defaultKeymap } from '@codemirror/commands';
 import { highlightSelectionMatches, searchKeymap } from '@codemirror/search';
+import { oneDark } from "@codemirror/theme-one-dark";
 import openxml from 'openxml'
 
 import '../assets/package-viewer.css'
@@ -66,7 +67,7 @@ function createEditorState(data) {
   const value = openxml.util.decode_utf8(data);
   return EditorState.create({
     doc: formatXMLBeautify(value),
-    extensions: [basicSetup, xml()]
+    extensions: [basicSetup, xml(), oneDark]
   });
 }
 

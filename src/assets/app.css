@@ -6,15 +6,26 @@ body,
   height: 100%;
 }
 
-.App {
+.app {
   height: 100%;
+  background: #00000073;
 }
 
-.App .open-dialog .bp4-dialog-footer-actions {
+.app .operation-card {
+  position: fixed;
+  width: 30vw;
+  height: 26vh;
+  left: calc(50% - 15vw);
+  top: calc(50% - 13vh);
+}
+
+.app .ant-layout-content {
+  display: flex;
+  align-items: center;
   justify-content: center;
 }
 
-.App .open-dialog .bp4-dialog-footer button {
+.app .operation-card button {
   width: 50%;
   height: 50%;
 }

@@ -1329,6 +1329,15 @@
   resolved "http://bohr.cheftin.cn:4873/@codemirror%2ftext/-/text-0.18.0.tgz#a4a98862989ccef5545e730b269136d524c6a7c7"
   integrity sha1-pKmIYpiczvVUXnMLJpE21STGp8c=
 
+"@codemirror/theme-one-dark@^0.18.1":
+  version "0.18.1"
+  resolved "http://bohr.cheftin.cn:4873/@codemirror%2ftheme-one-dark/-/theme-one-dark-0.18.1.tgz#fa625db384418e89b778d2ae49824c44d5280e3f"
+  integrity sha1-+mJds4RBjom3eNKuSYJMRNUoDj8=
+  dependencies:
+    "@codemirror/highlight" "^0.18.0"
+    "@codemirror/state" "^0.18.0"
+    "@codemirror/view" "^0.18.0"
+
 "@codemirror/tooltip@^0.18.4":
   version "0.18.4"
   resolved "http://bohr.cheftin.cn:4873/@codemirror%2ftooltip/-/tooltip-0.18.4.tgz#981bc0ced792c6754148edbc1f60092f3fa54207"

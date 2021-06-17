@@ -7,3 +7,8 @@
 .package-viewer #editor {
   overflow: auto;
 }
+
+
+.cm-editor {
+  height: 100%;
+}
