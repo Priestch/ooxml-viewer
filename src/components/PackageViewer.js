@@ -38,6 +38,7 @@ function getTreeData(pkg) {
         key: id,
         title: id,
         children: [],
+        disabled: pkg.parts[id].partType !== 'xml',
       })
     }
   })

@@ -17,9 +17,10 @@ body,
   height: 26vh;
   left: calc(50% - 15vw);
   top: calc(50% - 13vh);
+  border: 4px dashed #000000d9;
 }
 
-.app .ant-layout-content {
+.app .operation-card .ant-layout-content {
   display: flex;
   align-items: center;
   justify-content: center;
