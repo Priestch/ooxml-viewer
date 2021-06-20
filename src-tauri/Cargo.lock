@@ -2813,7 +2813,8 @@ dependencies = [
 [[package]]
 name = "tao"
 version = "0.2.6"
-source = "git+https://github.com/tauri-apps/tao.git?branch=dev#52ebebbc5cc2913bb4b50ea7743e9f6be21e6657"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3ece0608233e93504778f4740457cdd3508966a691de8cedbbc7291f80236250"
 dependencies = [
  "bitflags 1.2.1",
  "cairo-rs",
