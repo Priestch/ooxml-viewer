@@ -93,7 +93,7 @@ function PackageViewer({ pkg }) {
       }
 
     }
-  }, [currentUri])
+  }, [currentUri, pkg])
 
   const handleSelect = useCallback((keys) => {
     const partUri = keys[0];
