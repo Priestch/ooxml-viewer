@@ -1840,12 +1840,12 @@
 
 "@tauri-apps/api@^1.0.0-beta.2":
   version "1.0.0-beta.2"
-  resolved "http://bohr.cheftin.cn:4873/@tauri-apps%2fapi/-/api-1.0.0-beta.2.tgz#44df5d4faf47b925c2f30967997db26cef705cdd"
+  resolved "https://registry.npmjs.org/@tauri-apps%2fapi/-/api-1.0.0-beta.2.tgz#44df5d4faf47b925c2f30967997db26cef705cdd"
   integrity sha1-RN9dT69HuSXC8wlnmX2ybO9wXN0=
 
 "@tauri-apps/cli@^1.0.0-beta.3":
   version "1.0.0-beta.3"
-  resolved "http://bohr.cheftin.cn:4873/@tauri-apps%2fcli/-/cli-1.0.0-beta.3.tgz#cede848e26122c8ee607749d84269fcc8d3c2ee1"
+  resolved "https://registry.npmjs.org/@tauri-apps%2fcli/-/cli-1.0.0-beta.3.tgz#cede848e26122c8ee607749d84269fcc8d3c2ee1"
   integrity sha1-zt6EjiYSLI7mB3SdhCafzI08LuE=
   dependencies:
     "@tauri-apps/toml" "2.2.4"
@@ -3873,7 +3873,7 @@ cli-cursor@^3.1.0:
 
 cli-spinners@^2.5.0:
   version "2.6.0"
-  resolved "http://bohr.cheftin.cn:4873/cli-spinners/-/cli-spinners-2.6.0.tgz#36c7dc98fb6a9a76bd6238ec3f77e2425627e939"
+  resolved "https://registry.npmjs.org/cli-spinners/-/cli-spinners-2.6.0.tgz#36c7dc98fb6a9a76bd6238ec3f77e2425627e939"
   integrity sha1-NsfcmPtqmna9YjjsP3fiQlYn6Tk=
 
 cli-width@^3.0.0:
@@ -3908,7 +3908,7 @@ clone-response@1.0.2, clone-response@^1.0.2:
 
 clone@^1.0.2:
   version "1.0.4"
-  resolved "http://bohr.cheftin.cn:4873/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
+  resolved "https://registry.npmjs.org/clone/-/clone-1.0.4.tgz#da309cc263df15994c688ca902179ca3c7cd7c7e"
   integrity sha1-2jCcwmPfFZlMaIypAheco8fNfH4=
 
 co@^4.6.0:
@@ -4757,7 +4757,7 @@ default-gateway@^4.2.0:
 
 defaults@^1.0.3:
   version "1.0.3"
-  resolved "http://bohr.cheftin.cn:4873/defaults/-/defaults-1.0.3.tgz#c656051e9817d9ff08ed881477f3fe4019f3ef7d"
+  resolved "https://registry.npmjs.org/defaults/-/defaults-1.0.3.tgz#c656051e9817d9ff08ed881477f3fe4019f3ef7d"
   integrity sha1-xlYFHpgX2f8I7YgUd/P+QBnz730=
   dependencies:
     clone "^1.0.2"
@@ -7024,7 +7024,7 @@ ini@^1.3.4, ini@^1.3.5, ini@~1.3.0:
 
 inquirer@8.1.1:
   version "8.1.1"
-  resolved "http://bohr.cheftin.cn:4873/inquirer/-/inquirer-8.1.1.tgz#7c53d94c6d03011c7bb2a947f0dca3b98246c26a"
+  resolved "https://registry.npmjs.org/inquirer/-/inquirer-8.1.1.tgz#7c53d94c6d03011c7bb2a947f0dca3b98246c26a"
   integrity sha1-fFPZTG0DARx7sqlH8NyjuYJGwmo=
   dependencies:
     ansi-escapes "^4.2.1"
@@ -7288,7 +7288,7 @@ is-installed-globally@^0.4.0:
 
 is-interactive@^1.0.0:
   version "1.0.0"
-  resolved "http://bohr.cheftin.cn:4873/is-interactive/-/is-interactive-1.0.0.tgz#cea6e6ae5c870a7b0a0004070b7b587e0252912e"
+  resolved "https://registry.npmjs.org/is-interactive/-/is-interactive-1.0.0.tgz#cea6e6ae5c870a7b0a0004070b7b587e0252912e"
   integrity sha1-zqbmrlyHCnsKAAQHC3tYfgJSkS4=
 
 is-module@^1.0.0:
@@ -7453,7 +7453,7 @@ is-typedarray@^1.0.0, is-typedarray@~1.0.0:
 
 is-unicode-supported@^0.1.0:
   version "0.1.0"
-  resolved "http://bohr.cheftin.cn:4873/is-unicode-supported/-/is-unicode-supported-0.1.0.tgz#3f26c76a809593b52bfa2ecb5710ed2779b522a7"
+  resolved "https://registry.npmjs.org/is-unicode-supported/-/is-unicode-supported-0.1.0.tgz#3f26c76a809593b52bfa2ecb5710ed2779b522a7"
   integrity sha1-PybHaoCVk7Ur+i7LVxDtJ3m1Iqc=
 
 is-utf8@^0.2.0:
@@ -8426,7 +8426,7 @@ lodash.uniq@^4.5.0:
 
 log-symbols@^4.1.0:
   version "4.1.0"
-  resolved "http://bohr.cheftin.cn:4873/log-symbols/-/log-symbols-4.1.0.tgz#3fbdbb95b4683ac9fc785111e792e558d4abd503"
+  resolved "https://registry.npmjs.org/log-symbols/-/log-symbols-4.1.0.tgz#3fbdbb95b4683ac9fc785111e792e558d4abd503"
   integrity sha1-P727lbRoOsn8eFER55LlWNSr1QM=
   dependencies:
     chalk "^4.1.0"
@@ -8996,7 +8996,7 @@ node-abi@^2.21.0:
 
 node-addon-api@^3.2.0:
   version "3.2.1"
-  resolved "http://bohr.cheftin.cn:4873/node-addon-api/-/node-addon-api-3.2.1.tgz#81325e0a2117789c0128dab65e7e38f07ceba161"
+  resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-3.2.1.tgz#81325e0a2117789c0128dab65e7e38f07ceba161"
   integrity sha1-gTJeCiEXeJwBKNq2Xn448HzroWE=
 
 node-forge@^0.10.0:
@@ -9367,7 +9367,7 @@ optipng-bin@^7.0.0:
 
 ora@^5.3.0:
   version "5.4.1"
-  resolved "http://bohr.cheftin.cn:4873/ora/-/ora-5.4.1.tgz#1b2678426af4ac4a509008e5e4ac9e9959db9e18"
+  resolved "https://registry.npmjs.org/ora/-/ora-5.4.1.tgz#1b2678426af4ac4a509008e5e4ac9e9959db9e18"
   integrity sha1-GyZ4Qmr0rEpQkAjl5KyemVnbnhg=
   dependencies:
     bl "^4.1.0"
@@ -12151,7 +12151,7 @@ shallowequal@^1.1.0:
 
 sharp@0.28.3:
   version "0.28.3"
-  resolved "http://bohr.cheftin.cn:4873/sharp/-/sharp-0.28.3.tgz#ecd74cefd020bee4891bb137c9850ee2ce277a8b"
+  resolved "https://registry.npmjs.org/sharp/-/sharp-0.28.3.tgz#ecd74cefd020bee4891bb137c9850ee2ce277a8b"
   integrity sha1-7NdM79AgvuSJG7E3yYUO4s4neos=
   dependencies:
     color "^3.1.3"
@@ -13655,7 +13655,7 @@ wbuf@^1.1.0, wbuf@^1.7.3:
 
 wcwidth@^1.0.1:
   version "1.0.1"
-  resolved "http://bohr.cheftin.cn:4873/wcwidth/-/wcwidth-1.0.1.tgz#f0b0dcf915bc5ff1528afadb2c0e17b532da2fe8"
+  resolved "https://registry.npmjs.org/wcwidth/-/wcwidth-1.0.1.tgz#f0b0dcf915bc5ff1528afadb2c0e17b532da2fe8"
   integrity sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=
   dependencies:
     defaults "^1.0.3"
