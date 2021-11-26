@@ -7,7 +7,9 @@ import reportWebVitals from './reportWebVitals';
 import './libs/vkbeautify'
 
 ReactDOM.render(
-  <App />,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
   document.getElementById('root')
 );
 

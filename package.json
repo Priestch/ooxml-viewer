@@ -15,7 +15,7 @@
     "@codemirror/theme-one-dark": "^0.18.1",
     "@codemirror/view": "^0.18.16",
     "@prettier/plugin-xml": "^0.13.1",
-    "@tauri-apps/api": "^1.0.0-beta.2",
+    "@tauri-apps/api": "^1.0.0-beta.8",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -23,8 +23,8 @@
     "openxml": "https://github.com/Priestch/openxml",
     "prettier": "^2.3.1",
     "prop-types": "^15.7.2",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "web-vitals": "^1.0.1"
   },
@@ -54,6 +54,6 @@
     ]
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta.3"
+    "@tauri-apps/cli": "^1.0.0-beta.10"
   }
 }
