@@ -138,11 +138,12 @@ function showFileContent(fileUri) {
 
   const editorContainer = document.querySelector('#editor .n-layout-scroll-container');
   const fileContent = part.data;
+  const state = createEditorState(fileContent);
   if (!editorView.value) {
-    const state = createEditorState(fileContent);
     editorView.value = new EditorView({state, parent: editorContainer});
   } else {
-    editorView.value.setState(createEditorState(fileContent));
+    editorView.value.destroy();
+    editorView.value = new EditorView({state, parent: editorContainer});
   }
 }
 </script>
