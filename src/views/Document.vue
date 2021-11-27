@@ -148,37 +148,36 @@ function showFileContent(fileUri) {
 </script>
 
 <template>
-  <section class="page">
-    <n-layout has-sider v-show="!modalVisible" class="package-viewer">
-      <n-layout-sider content-style="padding: 20px 10px;">
-        <n-tree
-            block-line
-            :data="treeData"
-            @update:selected-keys="handleSelectedKeysUpdate"
-            selectable
-        />
-      </n-layout-sider>
-      <n-layout-content id="editor">
-      </n-layout-content
-      >
-    </n-layout>
+  <n-layout has-sider v-show="!modalVisible" class="package-viewer">
+    <n-layout-sider content-style="padding: 20px 10px;">
+      <n-tree
+          block-line
+          :data="treeData"
+          @update:selected-keys="handleSelectedKeysUpdate"
+          selectable
+      />
+    </n-layout-sider>
+    <n-layout-content id="editor">
+    </n-layout-content
+    >
+  </n-layout>
 
-    <n-modal v-model:show="modalVisible" class="welcome-modal" transform-origin="center" preset="card" :mask-closable="false" :style="modalStyle">
-      <n-grid :cols="2" style="min-height: 500px;">
-        <n-gi class="left-section">
-          <div class="column-content" @click="openFileDialog">
-            <n-icon size="40">
-              <cloud-upload-outlined/>
-            </n-icon>
-            <div>OPEN A FILE</div>
-          </div>
-        </n-gi>
-        <n-gi class="right-section">
-          <n-data-table class="history-records" :columns="columns" :data="historyRecords" :striped="true" />
-        </n-gi>
-      </n-grid>
-    </n-modal>
-  </section>
+  <n-modal v-model:show="modalVisible" class="welcome-modal" transform-origin="center" preset="card"
+           :mask-closable="false" :style="modalStyle">
+    <n-grid :cols="2" style="min-height: 500px;">
+      <n-gi class="left-section">
+        <div class="column-content" @click="openFileDialog">
+          <n-icon size="40">
+            <cloud-upload-outlined/>
+          </n-icon>
+          <div>OPEN A FILE</div>
+        </div>
+      </n-gi>
+      <n-gi class="right-section">
+        <n-data-table class="history-records" :columns="columns" :data="historyRecords" :striped="true"/>
+      </n-gi>
+    </n-grid>
+  </n-modal>
 </template>
 
 <style scoped lang="scss">

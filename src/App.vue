@@ -7,7 +7,7 @@ import './assets/app.css'
 </template>
 
 <style>
-.page {
+#app {
   height: 100%;
 }
 </style>
