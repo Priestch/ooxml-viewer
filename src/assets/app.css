@@ -5,28 +5,3 @@ body,
 #root {
   height: 100%;
 }
-
-.app {
-  height: 100%;
-  background: #00000073;
-}
-
-.app .operation-card {
-  position: fixed;
-  width: 30vw;
-  height: 26vh;
-  left: calc(50% - 15vw);
-  top: calc(50% - 13vh);
-  border: 4px dashed #000000d9;
-}
-
-.app .operation-card .ant-layout-content {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.app .operation-card button {
-  width: 50%;
-  height: 50%;
-}

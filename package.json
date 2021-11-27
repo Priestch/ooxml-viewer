@@ -3,36 +3,30 @@
   "version": "0.1.1",
   "private": true,
   "dependencies": {
-    "@ant-design/icons": "^4.7.0",
-    "@codemirror/commands": "^0.19.5",
-    "@codemirror/fold": "^0.19.1",
-    "@codemirror/gutter": "^0.19.5",
-    "@codemirror/highlight": "^0.19.6",
-    "@codemirror/lang-xml": "^0.19.2",
-    "@codemirror/rectangular-selection": "^0.19.1",
-    "@codemirror/search": "^0.19.3",
-    "@codemirror/state": "^0.19.6",
-    "@codemirror/theme-one-dark": "^0.19.1",
-    "@codemirror/view": "^0.19.21",
+    "@codemirror/commands": "^0.18.2",
+    "@codemirror/fold": "^0.18.1",
+    "@codemirror/gutter": "^0.18.4",
+    "@codemirror/highlight": "^0.18.4",
+    "@codemirror/lang-xml": "^0.18.0",
+    "@codemirror/rectangular-selection": "^0.18.0",
+    "@codemirror/search": "^0.18.4",
+    "@codemirror/state": "^0.18.7",
+    "@codemirror/theme-one-dark": "^0.18.1",
+    "@codemirror/view": "^0.18.16",
     "@prettier/plugin-xml": "^0.13.1",
     "@tauri-apps/api": "^1.0.0-beta.8",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "antd": "^4.16.3",
+    "naive-ui": "^2.21.1",
     "openxml": "https://github.com/Priestch/openxml",
     "prettier": "^2.3.1",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3",
-    "web-vitals": "^1.0.1"
+    "sass": "^1.43.5",
+    "vkbeautify": "^0.99.3",
+    "vue": "^3.2.16",
+    "vue-router": "4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
     "tauri": "tauri"
   },
   "eslintConfig": {
@@ -54,6 +48,9 @@
     ]
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta.10"
+    "@tauri-apps/cli": "^1.0.0-beta.10",
+    "@vicons/material": "^0.11.0",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "vite": "^2.6.4"
   }
 }

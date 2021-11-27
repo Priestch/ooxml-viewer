@@ -1,3 +1,4 @@
+import vkbeautify from 'vkbeautify';
 import prettier from 'prettier/standalone'
 import xmlPlugin from '@prettier/plugin-xml'
 
@@ -10,5 +11,5 @@ export function formatXML(value) {
 }
 
 export function formatXMLBeautify(value) {
-  return window.vkbeautify.xml(value, 2);
+  return vkbeautify.xml(value, 2);
 }
