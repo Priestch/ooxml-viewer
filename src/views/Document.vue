@@ -1,8 +1,22 @@
 <script setup>
-import { NModal, NDataTable, NIcon, NGrid, NGi, NLayout, NLayoutContent, NLayoutHeader, NLayoutFooter, NLayoutSider, NTree } from 'naive-ui';
+import {
+  NModal,
+  NDataTable,
+  NIcon,
+  NGrid,
+  NGi,
+  NLayout,
+  NLayoutContent,
+  NLayoutHeader,
+  NLayoutFooter,
+  NLayoutSider,
+  NTree,
+  NPopover,
+  NButton
+} from 'naive-ui';
 import { CloudUploadOutlined } from '@vicons/material';
 import openxml from 'openxml';
-import { ref, onMounted, computed, watchEffect } from 'vue';
+import { ref, onMounted, computed, h } from 'vue';
 import { open } from "@tauri-apps/api/dialog";
 import { readBinaryFile } from "@tauri-apps/api/fs";
 import { EditorState, Prec } from "@codemirror/state";
@@ -15,7 +29,9 @@ import { foldGutter, foldKeymap } from "@codemirror/fold";
 import { defaultHighlightStyle } from "@codemirror/highlight";
 import { rectangularSelection } from "@codemirror/rectangular-selection";
 import { highlightSelectionMatches, searchKeymap } from "@codemirror/search";
-import { defaultKeymap } from "@codemirror/commands";
+import { defaultKeymap } from '@codemirror/commands';
+import useRecentFiles from '../hooks/useRecentFiles';
+import { homeDir, sep } from "@tauri-apps/api/path";
 
 function getTreeData(pkg) {
   const data = [];
@@ -46,6 +62,8 @@ function getTreeData(pkg) {
   return data;
 }
 
+const { records, addRecord } = useRecentFiles();
+
 const modalVisible = ref(false)
 const docPackage = ref(null);
 const editorView = ref(null);
@@ -60,8 +78,42 @@ const treeData = computed(() => {
 
 const activeUri = ref(null);
 
-const columns = [{ title: 'Recent Opened Files', key: 'name' }]
-const historyRecords = []
+function handleClickRecentFile(row) {
+  return readFile(row.fullPath)
+      .then(({ fileResult }) => {
+        docPackage.value = new openxml.OpenXmlPackage(fileResult);
+        modalVisible.value = false;
+      })
+}
+
+const columns = [
+  {
+    title: 'Recent Opened Files',
+    key: 'name',
+    render(row) {
+      return h(
+          NPopover,
+          {},
+          {
+            default() {
+              return h('span', {}, row.fullPath)
+            },
+            trigger() {
+              return h(NButton, { text: true, onClick: () => handleClickRecentFile(row) }, () => row.name)
+            }
+          },
+      )
+    }
+  },
+]
+
+const historyRecords = records.value.map((record, index) => {
+  return {
+    key: index,
+    ...record,
+  }
+})
+
 const modalStyle = {
   '--padding-left': 0,
   '--padding-right': 0,
@@ -73,17 +125,36 @@ onMounted(() => {
   modalVisible.value = true;
 })
 
-function openFileDialog(event) {
-  const dialogOptions = {
-    defaultPath: '/home/gaopeng',
-    directory: false,
-    filters: [{name: 'Office Files', extensions: ['docx']}],
-    multiple: false,
-  };
-
-  open(dialogOptions)
-      .then(readBinaryFile)
+function readFile(filename) {
+  return readBinaryFile(filename)
       .then((fileResult) => {
+        return {
+          filename,
+          fileResult,
+        }
+      });
+}
+
+function openFileDialog(event) {
+  const dialogOptionsPromise = homeDir()
+      .then((dir) => {
+        return {
+          defaultPath: dir,
+          directory: false,
+          filters: [{name: 'Office Files', extensions: ['docx']}],
+          multiple: false,
+        };
+      });
+
+  dialogOptionsPromise
+      .then(open)
+      .then(readFile)
+      .then(({fileResult, filename}) => {
+        const pathParts = filename.split(sep);
+        addRecord({
+          fullPath: filename,
+          name: pathParts[pathParts.length - 1],
+        });
         docPackage.value = new openxml.OpenXmlPackage(fileResult);
         modalVisible.value = false;
       })
