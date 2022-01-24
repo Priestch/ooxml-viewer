@@ -115,9 +115,9 @@ const historyRecords = records.value.map((record, index) => {
 })
 
 const modalStyle = {
-  '--padding-left': 0,
-  '--padding-right': 0,
-  '--padding-bottom': 0,
+  '--n-padding-left': 0,
+  '--n-padding-right': 0,
+  '--n-padding-bottom': 0,
   width: '40%',
 }
 
@@ -256,7 +256,7 @@ function showFileContent(fileUri) {
 .package-viewer {
   height: 100%;
 
-  & :deep .cm-editor {
+  & :deep(.cm-editor) {
     height: 100%;
   }
 }
@@ -271,7 +271,7 @@ function showFileContent(fileUri) {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid lightgray;
+  border-right: 1px solid lightgray;
 
   .column-content {
     width: 100%;
@@ -284,7 +284,7 @@ function showFileContent(fileUri) {
   .history-records {
     height: 100%;
 
-    :deep .n-data-table-wrapper {
+    :deep(.n-data-table-wrapper) {
       height: 100%;
     }
   }
