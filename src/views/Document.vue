@@ -36,7 +36,7 @@ import { homeDir, sep } from "@tauri-apps/api/path";
 function getTreeData(pkg) {
   const data = [];
   Object.entries(pkg.parts).forEach(([id, part]) => {
-    const pathItems =  id.split('/').filter(Boolean);
+    const pathItems = id.split('/').filter(Boolean);
     const topLevelId = pathItems[0];
     let index = data.findIndex((part) => part.key === topLevelId);
     let parentPart = data[index];
@@ -118,7 +118,6 @@ const modalStyle = {
   '--n-padding-left': 0,
   '--n-padding-right': 0,
   '--n-padding-bottom': 0,
-  width: '40%',
 }
 
 onMounted(() => {
@@ -235,8 +234,8 @@ function showFileContent(fileUri) {
   </n-layout>
 
   <n-modal v-model:show="modalVisible" class="welcome-modal" transform-origin="center" preset="card"
-           :mask-closable="false" :style="modalStyle">
-    <n-grid :cols="2" style="min-height: 500px;">
+           :mask-closable="false" :style="modalStyle" :close-on-esc="false">
+    <n-grid cols="1 800:2" style="min-height: 500px;" :item-response="true">
       <n-gi class="left-section">
         <div class="column-content" @click="openFileDialog">
           <n-icon size="40">
@@ -303,8 +302,16 @@ function showFileContent(fileUri) {
 
 <style lang="scss">
 .welcome-modal {
+  width: 30%;
+
   .n-card-header {
     display: none;
+  }
+}
+
+@media (max-width: 1600px) {
+  .welcome-modal {
+    width: 80%;
   }
 }
 </style>
