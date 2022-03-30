@@ -1,3 +1,36 @@
+<template>
+  <n-layout :has-sider="true" v-show="!modalVisible" class="package-viewer" position="absolute">
+    <n-layout-sider content-style="padding: 20px 10px;" :bordered="true" collapse-mode="width" :width="400">
+      <n-tree
+          block-line
+          :data="treeData"
+          @update:selected-keys="handleSelectedKeysUpdate"
+          selectable
+      />
+    </n-layout-sider>
+    <n-layout-content id="editor">
+    </n-layout-content
+    >
+  </n-layout>
+
+  <n-modal v-model:show="modalVisible" class="welcome-modal" transform-origin="center" preset="card"
+           :mask-closable="false" :style="modalStyle" :close-on-esc="false">
+    <n-grid cols="1 800:2" style="min-height: 500px;" :item-response="true">
+      <n-gi class="left-section">
+        <div class="column-content" @click="openFileDialog">
+          <n-icon size="40">
+            <cloud-upload-outlined/>
+          </n-icon>
+          <div>OPEN A FILE</div>
+        </div>
+      </n-gi>
+      <n-gi class="right-section">
+        <n-data-table class="history-records" :columns="columns" :row-props="rowProps" :data="historyRecords" :striped="true" />
+      </n-gi>
+    </n-grid>
+  </n-modal>
+</template>
+
 <script setup>
 import {
   NModal,
@@ -90,20 +123,10 @@ const columns = [
   {
     title: 'Recent Opened Files',
     key: 'name',
-    render(row) {
-      return h(
-          NPopover,
-          {},
-          {
-            default() {
-              return h('span', {}, row.fullPath)
-            },
-            trigger() {
-              return h(NButton, { text: true, onClick: () => handleClickRecentFile(row) }, () => row.name)
-            }
-          },
-      )
-    }
+    width: 100,
+    ellipsis: {
+      tooltip: true,
+    },
   },
 ]
 
@@ -113,6 +136,15 @@ const historyRecords = records.value.map((record, index) => {
     ...record,
   }
 })
+
+const rowProps = (row) => {
+  return {
+    style: 'cursor: pointer;',
+    onClick: () => {
+      handleClickRecentFile(row)
+    }
+  }
+}
 
 const modalStyle = {
   '--n-padding-left': 0,
@@ -217,39 +249,6 @@ function showFileContent(fileUri) {
   }
 }
 </script>
-
-<template>
-  <n-layout has-sider v-show="!modalVisible" class="package-viewer">
-    <n-layout-sider content-style="padding: 20px 10px;">
-      <n-tree
-          block-line
-          :data="treeData"
-          @update:selected-keys="handleSelectedKeysUpdate"
-          selectable
-      />
-    </n-layout-sider>
-    <n-layout-content id="editor">
-    </n-layout-content
-    >
-  </n-layout>
-
-  <n-modal v-model:show="modalVisible" class="welcome-modal" transform-origin="center" preset="card"
-           :mask-closable="false" :style="modalStyle" :close-on-esc="false">
-    <n-grid cols="1 800:2" style="min-height: 500px;" :item-response="true">
-      <n-gi class="left-section">
-        <div class="column-content" @click="openFileDialog">
-          <n-icon size="40">
-            <cloud-upload-outlined/>
-          </n-icon>
-          <div>OPEN A FILE</div>
-        </div>
-      </n-gi>
-      <n-gi class="right-section">
-        <n-data-table class="history-records" :columns="columns" :data="historyRecords" :striped="true"/>
-      </n-gi>
-    </n-grid>
-  </n-modal>
-</template>
 
 <style scoped lang="scss">
 .package-viewer {
