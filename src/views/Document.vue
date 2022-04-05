@@ -8,7 +8,8 @@
           selectable
       />
     </n-layout-sider>
-    <n-layout-content id="editor">
+    <n-layout-content>
+      <package-part v-if="activeUri && docPackage.parts[activeUri]" :part="docPackage.parts[activeUri]"></package-part>
     </n-layout-content
     >
   </n-layout>
@@ -25,7 +26,8 @@
         </div>
       </n-gi>
       <n-gi class="right-section">
-        <n-data-table class="history-records" :columns="columns" :row-props="rowProps" :data="historyRecords" :striped="true" />
+        <n-data-table class="history-records" :columns="columns" :row-props="rowProps" :data="historyRecords"
+                      :striped="true"/>
       </n-gi>
     </n-grid>
   </n-modal>
@@ -52,19 +54,9 @@ import openxml from 'openxml';
 import { ref, onMounted, computed, h } from 'vue';
 import { open } from "@tauri-apps/api/dialog";
 import { readBinaryFile } from "@tauri-apps/api/fs";
-import { EditorState, Prec } from "@codemirror/state";
-import { formatXMLBeautify } from "../utils";
-import { xml } from "@codemirror/lang-xml";
-import { oneDark } from "@codemirror/theme-one-dark";
-import { lineNumbers } from "@codemirror/gutter";
-import { drawSelection, EditorView, highlightActiveLine, highlightSpecialChars, keymap } from "@codemirror/view";
-import { foldGutter, foldKeymap } from "@codemirror/fold";
-import { defaultHighlightStyle } from "@codemirror/highlight";
-import { rectangularSelection } from "@codemirror/rectangular-selection";
-import { highlightSelectionMatches, searchKeymap } from "@codemirror/search";
-import { defaultKeymap } from '@codemirror/commands';
 import useRecentFiles from '../hooks/useRecentFiles';
 import { homeDir, sep } from "@tauri-apps/api/path";
+import PackagePart from '../components/PackagePart.vue'
 
 function getTreeData(pkg) {
   const data = [];
@@ -87,7 +79,8 @@ function getTreeData(pkg) {
         key: id,
         label: id,
         children: [],
-        disabled: !isXML,
+        // disabled: !isXML,
+        isLeaf: isXML,
       })
     }
   })
@@ -95,11 +88,10 @@ function getTreeData(pkg) {
   return data;
 }
 
-const { records, addRecord } = useRecentFiles();
+const {records, addRecord} = useRecentFiles();
 
 const modalVisible = ref(false)
 const docPackage = ref(null);
-const editorView = ref(null);
 
 const treeData = computed(() => {
   if (!docPackage.value) {
@@ -113,7 +105,7 @@ const activeUri = ref(null);
 
 function handleClickRecentFile(row) {
   return readFile(row.fullPath)
-      .then(({ fileResult }) => {
+      .then(({fileResult}) => {
         docPackage.value = new openxml.OpenXmlPackage(fileResult);
         modalVisible.value = false;
       })
@@ -194,35 +186,6 @@ function openFileDialog(event) {
       })
 }
 
-function createExtensions() {
-  const basicSetup = [
-    lineNumbers(),
-    highlightSpecialChars(),
-    foldGutter(),
-    drawSelection(),
-    drawSelection(),
-    Prec.fallback(defaultHighlightStyle),
-    rectangularSelection(),
-    highlightActiveLine(),
-    highlightSelectionMatches(),
-    keymap.of([
-      ...defaultKeymap,
-      ...searchKeymap,
-      ...foldKeymap,
-    ])
-  ];
-
-  return [...basicSetup, xml(), oneDark];
-}
-
-function createEditorState(data) {
-  const value = openxml.util.decode_utf8(data);
-  return EditorState.create({
-    doc: formatXMLBeautify(value),
-    extensions: createExtensions(),
-  });
-}
-
 function handleSelectedKeysUpdate(keys, options) {
   if (!keys.length > 0) {
     return;
@@ -231,21 +194,6 @@ function handleSelectedKeysUpdate(keys, options) {
   const option = options[0]
   if (option.children.length === 0 && key) {
     activeUri.value = key;
-    showFileContent(activeUri.value);
-  }
-}
-
-function showFileContent(fileUri) {
-  const part = docPackage.value.parts[fileUri];
-
-  const editorContainer = document.querySelector('#editor .n-layout-scroll-container');
-  const fileContent = part.data;
-  const state = createEditorState(fileContent);
-  if (!editorView.value) {
-    editorView.value = new EditorView({state, parent: editorContainer});
-  } else {
-    editorView.value.destroy();
-    editorView.value = new EditorView({state, parent: editorContainer});
   }
 }
 </script>
@@ -253,10 +201,6 @@ function showFileContent(fileUri) {
 <style scoped lang="scss">
 .package-viewer {
   height: 100%;
-
-  & :deep(.cm-editor) {
-    height: 100%;
-  }
 }
 
 .welcome-modal {
