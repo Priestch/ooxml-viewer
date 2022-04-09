@@ -6,6 +6,7 @@
           :data="treeData"
           @update:selected-keys="handleSelectedKeysUpdate"
           :render-switcher-icon="renderSwitcherIcon"
+          :style="treeStyle"
           selectable
       />
     </n-layout-sider>
@@ -52,6 +53,7 @@ import {
 } from 'naive-ui';
 import { CloudUploadOutlined } from '@vicons/material';
 import { FolderFilled } from '@vicons/antd';
+import { Image, Xml } from '@vicons/carbon';
 import openxml from 'openxml';
 import { computed, onMounted, ref, h } from 'vue';
 import { open } from "@tauri-apps/api/dialog";
@@ -89,11 +91,16 @@ class Tree {
   }
 
   static parseLeafNode(part) {
+    const isBinary = part.partType === 'binary';
     return {
       key: part.uri,
       label: part.uri,
       children: [],
       isLeaf: true,
+      prefix() {
+        const icon = isBinary ? Image : Xml;
+        return h(NIcon, null, { default: () => h(icon) })
+      }
     }
   }
 }
@@ -215,6 +222,10 @@ function handleSelectedKeysUpdate(keys, options) {
 
 function renderSwitcherIcon() {
   return h(NIcon, null, { default: () => h(FolderFilled) })
+}
+
+const treeStyle = {
+  '--n-font-size': '1.2em',
 }
 </script>
 
