@@ -5,6 +5,7 @@
           block-line
           :data="treeData"
           @update:selected-keys="handleSelectedKeysUpdate"
+          :render-switcher-icon="renderSwitcherIcon"
           selectable
       />
     </n-layout-sider>
@@ -49,43 +50,51 @@ import {
   NPopover,
   NButton
 } from 'naive-ui';
-import { CloudUploadOutlined } from '@vicons/material';
+import { FolderFilled } from '@vicons/antd';
 import openxml from 'openxml';
-import { ref, onMounted, computed, h } from 'vue';
+import { computed, onMounted, ref, h } from 'vue';
 import { open } from "@tauri-apps/api/dialog";
 import { readBinaryFile } from "@tauri-apps/api/fs";
 import useRecentFiles from '../hooks/useRecentFiles';
 import { homeDir, sep } from "@tauri-apps/api/path";
 import PackagePart from '../components/PackagePart.vue'
 
-function getTreeData(pkg) {
-  const data = [];
-  Object.entries(pkg.parts).forEach(([id, part]) => {
-    const pathItems = id.split('/').filter(Boolean);
-    const topLevelId = pathItems[0];
-    let index = data.findIndex((part) => part.key === topLevelId);
-    let parentPart = data[index];
-    if (!parentPart) {
-      parentPart = {
-        key: topLevelId,
-        label: topLevelId,
-        children: [],
-      };
-      data.push(parentPart)
+class Tree {
+  constructor() {
+    this.root = {
+      children: [],
     }
-    if (pathItems.length > 1) {
-      const isXML = pkg.parts[id].partType === 'xml';
-      parentPart.children.push({
-        key: id,
-        label: id,
-        children: [],
-        // disabled: !isXML,
-        isLeaf: isXML,
-      })
-    }
-  })
+  }
 
-  return data;
+  insertLeaf(leaf) {
+    const segments = leaf.key.split("/").filter(Boolean);
+    const parentSegments = segments.slice(0, -1);
+    let parent = this.root;
+    for (let i = 0; i < parentSegments.length; i++) {
+      const key = parentSegments.slice(0, i + 1).join('/');
+      let treeNode = parent.children.find((i) => i.key === key);
+      if (!treeNode) {
+        treeNode = {
+          key: key,
+          label: parentSegments[i],
+          children: [],
+        }
+        parent.children.push(treeNode);
+      }
+      parent = treeNode;
+    }
+
+    parent.children.push(leaf);
+  }
+
+  static parseLeafNode(part) {
+    return {
+      key: part.uri,
+      label: part.uri,
+      children: [],
+      isLeaf: true,
+    }
+  }
 }
 
 const {records, addRecord} = useRecentFiles();
@@ -98,7 +107,13 @@ const treeData = computed(() => {
     return []
   }
 
-  return getTreeData(docPackage.value);
+  const tree = new Tree();
+  Object.values(docPackage.value.parts).forEach((part) => {
+    const leaf = Tree.parseLeafNode(part);
+    tree.insertLeaf(leaf)
+  })
+
+  return tree.root.children;
 })
 
 const activeUri = ref(null);
@@ -195,6 +210,10 @@ function handleSelectedKeysUpdate(keys, options) {
   if (option.children.length === 0 && key) {
     activeUri.value = key;
   }
+}
+
+function renderSwitcherIcon() {
+  return h(NIcon, null, { default: () => h(FolderFilled) })
 }
 </script>
 
