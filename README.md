@@ -5,7 +5,8 @@ based on [CodeMirror](https://github.com/codemirror/codemirror.next/) and [Tauri
 # TODO
 - [x] view xml part
 - [x] recent opened file list
-- [ ] view image part
+- [x] view image part
+- [ ] support edit and export to a new file
 
 ## Open 
 ![Open](./src/assets/open.png)
