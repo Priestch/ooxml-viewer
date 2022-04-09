@@ -50,6 +50,7 @@ import {
   NPopover,
   NButton
 } from 'naive-ui';
+import { CloudUploadOutlined } from '@vicons/material';
 import { FolderFilled } from '@vicons/antd';
 import openxml from 'openxml';
 import { computed, onMounted, ref, h } from 'vue';
