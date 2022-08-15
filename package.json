@@ -10,11 +10,11 @@
     "@codemirror/theme-one-dark": "^6.0.0",
     "@codemirror/view": "^6.2.0",
     "@prettier/plugin-xml": "^0.13.1",
-    "@tauri-apps/api": "^1.0.0-beta.8",
+    "@tauri-apps/api": "^1.0.2",
     "@vicons/carbon": "^0.12.0",
     "@vicons/material": "^0.12.0",
     "naive-ui": "^2.21.1",
-    "openxml": "https://github.com/Priestch/openxml",
+    "openxml": "priestch/openxml",
     "prettier": "^2.3.1",
     "sass": "^1.43.5",
     "vkbeautify": "^0.99.3",
@@ -46,7 +46,7 @@
     ]
   },
   "devDependencies": {
-    "@tauri-apps/cli": "^1.0.0-beta.10",
+    "@tauri-apps/cli": "^1.0.5",
     "@vicons/antd": "^0.12.0",
     "@vitejs/plugin-vue": "^2.1.0",
     "vite": "^2.6.4"
