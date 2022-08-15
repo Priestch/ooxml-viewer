@@ -8,18 +8,19 @@ const props = defineProps({
 });
 
 import openxml from "openxml";
-import { EditorState, Prec } from "@codemirror/state";
+import { EditorState } from "@codemirror/state";
 import { formatXMLBeautify } from "../utils";
-import { lineNumbers } from "@codemirror/gutter";
-import { drawSelection, EditorView, highlightActiveLine, highlightSpecialChars, keymap } from "@codemirror/view";
-import { foldGutter, foldKeymap } from "@codemirror/fold";
-import { defaultHighlightStyle } from "@codemirror/highlight";
-import { rectangularSelection } from "@codemirror/rectangular-selection";
-import { highlightSelectionMatches, searchKeymap } from "@codemirror/search";
+import { drawSelection, EditorView, highlightActiveLine, highlightSpecialChars, keymap, lineNumbers } from "@codemirror/view";
+import { foldGutter, foldKeymap } from "@codemirror/language";
+import { highlightSelectionMatches, searchKeymap, search } from "@codemirror/search";
 import { defaultKeymap } from "@codemirror/commands";
 import { xml } from "@codemirror/lang-xml";
 import { oneDark } from "@codemirror/theme-one-dark";
 import { onMounted, ref, watch, unref } from "vue";
+
+const largeFontPanel = EditorView.theme({
+  ".cm-panels": {fontSize: "18px", padding: "6px 4px"}
+})
 
 function createExtensions() {
   const basicSetup = [
@@ -28,10 +29,9 @@ function createExtensions() {
     foldGutter(),
     drawSelection(),
     drawSelection(),
-    Prec.fallback(defaultHighlightStyle),
-    rectangularSelection(),
     highlightActiveLine(),
     highlightSelectionMatches(),
+    search({top: true}),
     keymap.of([
       ...defaultKeymap,
       ...searchKeymap,
@@ -39,7 +39,7 @@ function createExtensions() {
     ])
   ];
 
-  return [...basicSetup, xml(), oneDark];
+  return [...basicSetup, xml(), oneDark, largeFontPanel];
 }
 
 function createEditorState(data) {
@@ -62,6 +62,7 @@ watch(() => props.part.data, () => {
   if (editorView.value) {
     editorView.value.destroy();
     editorView.value = createEditorView(props.part.data, rootRef.value);
+    // editorView.value.setState(createEditorState(props.part.data));
   }
 })
 
