@@ -47,7 +47,10 @@
       "active": false
     },
     "allowlist": {
-      "all": true
+      "all": true,
+      "fs": {
+        "scope": ["$HOME/**"]
+      }
     },
     "windows": [
       {
