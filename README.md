@@ -2,11 +2,18 @@
 A tool to view office word docx document easily,
 based on [CodeMirror](https://github.com/codemirror/codemirror.next/) and [Tauri](https://github.com/tauri-apps/tauri).
 
-# Planed Todos
-- [x] view xml part
-- [x] recent opened file list
-- [x] view image part
-- [x] support edit and export to a new file
+# Planed Features
+## View File
+- [x] view docx, xlsx, pptx
+- [x] edit and export docx, xlsx, pptx
+
+## Preview Media Part
+- [x] preview image part
+- [ ] preview svg part
+
+## Recent History
+- [x] record opened file history
+- [ ] modify history
 
 ## Open 
 ![Open](./src/assets/open.png)
