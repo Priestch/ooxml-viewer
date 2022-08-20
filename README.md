@@ -9,7 +9,7 @@ based on [CodeMirror](https://github.com/codemirror/codemirror.next/) and [Tauri
 
 ## Preview Media Part
 - [x] preview image part
-- [ ] preview svg part
+- [x] preview svg part
 
 ## Recent History
 - [x] record opened file history

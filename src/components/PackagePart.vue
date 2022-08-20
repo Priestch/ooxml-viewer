@@ -1,5 +1,5 @@
 <template>
-  <component :is="components[props.part.partType]" :part="props.part" @update-content="updateContent"></component>
+  <component :is="components[partType$]" :part="props.part" @update-content="updateContent"></component>
 </template>
 
 <script setup>
@@ -13,12 +13,20 @@ const props = defineProps({
 
 const emit = defineEmits(['updatePartContent'])
 
+const partType$ = computed(() => {
+  if (props.part.contentType.startsWith("image")) {
+    return "image";
+  }
+
+  return props.part.partType;
+})
+
 const updateContent = (payload) => {
   emit('updatePartContent', payload);
 }
 
 const components = {
   'xml': Editor,
-  'binary': ImageViewer,
+  'image': ImageViewer,
 }
 </script>

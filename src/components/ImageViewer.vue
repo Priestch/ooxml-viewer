@@ -1,8 +1,7 @@
 <template>
   <div class="image-viewer">
     <figure v-if="imageRef">
-      <img :src="imageRef"
-           alt="Elephant at sunset">
+      <img :src="imageRef" :class="part.contentType === 'image/svg+xml' ? 'svg': ''">
       <figcaption></figcaption>
     </figure>
   </div>
@@ -51,9 +50,20 @@ onBeforeUnmount(() => {
 
 <style lang="scss" scoped>
 .image-viewer {
+  height: 100%;
+  width: 100%;
+
+  figure {
+    height: 100%;
+  }
+
   img {
     border: 4px solid #fefefe;
     box-shadow: 0 0 0 1px rgb(10 10 10 / 20%);
+
+    &.svg {
+      height: 30%;
+    }
   }
 }
 </style>
