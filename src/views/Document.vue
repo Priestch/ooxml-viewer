@@ -11,7 +11,7 @@
       />
     </n-layout-sider>
     <n-layout-content>
-      <package-part v-if="activeUri && docPackage.parts[activeUri]" :part="docPackage.parts[activeUri]"></package-part>
+      <package-part v-if="currentPart" :part="currentPart" @update-part-content="updatePartContent"></package-part>
     </n-layout-content
     >
   </n-layout>
@@ -55,9 +55,9 @@ import { CloudUploadOutlined } from '@vicons/material';
 import { FolderFilled } from '@vicons/antd';
 import { Image, Xml } from '@vicons/carbon';
 import openxml from 'openxml';
-import { computed, onMounted, ref, h } from 'vue';
-import { open } from "@tauri-apps/api/dialog";
-import { readBinaryFile } from "@tauri-apps/api/fs";
+import { computed, onMounted, ref, h, unref, toRaw, reactive } from 'vue';
+import { open, save } from "@tauri-apps/api/dialog";
+import { readBinaryFile, writeBinaryFile } from "@tauri-apps/api/fs";
 import useRecentFiles from '../hooks/useRecentFiles';
 import { homeDir, sep } from "@tauri-apps/api/path";
 import PackagePart from '../components/PackagePart.vue'
@@ -125,6 +125,16 @@ const treeData = computed(() => {
 })
 
 const activeUri = ref(null);
+const userHomeDir = ref(null);
+
+const currentPart = computed(() => {
+  if (activeUri.value) {
+    const part = docPackage.value.parts[activeUri.value];
+    return reactive({
+      ...toRaw(part),
+    });
+  }
+});
 
 function handleClickRecentFile(row) {
   return readFile(row.fullPath)
@@ -169,6 +179,9 @@ const modalStyle = {
 
 onMounted(() => {
   modalVisible.value = true;
+  homeDir().then((dir) => {
+    userHomeDir.value = dir;
+  })
 })
 
 function readFile(filename) {
@@ -179,6 +192,14 @@ function readFile(filename) {
           fileResult,
         }
       });
+}
+
+function updatePartContent({ content, exportFile = false }) {
+  const currentPart = docPackage.value.parts[activeUri.value];
+  currentPart.data = content;
+  if (exportFile) {
+    openExportDialog()
+  }
 }
 
 function openFileDialog(event) {
@@ -207,6 +228,20 @@ function openFileDialog(event) {
       .catch(reason => {
         console.error('reason', reason);
       })
+}
+
+async function openExportDialog() {
+  const exportFilePath = await save({
+    defaultPath: userHomeDir.value
+  });
+  const unrefPackage = toRaw(unref(docPackage.value));
+  const fileBlob = unrefPackage.saveToBlob();
+  const contents = await fileBlob.arrayBuffer();
+  try {
+    await writeBinaryFile({path: exportFilePath, contents })
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function handleSelectedKeysUpdate(keys, options) {

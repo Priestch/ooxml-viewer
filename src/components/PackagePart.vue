@@ -1,5 +1,5 @@
 <template>
-  <component :is="components[currentPart.partType]" :part="currentPart"></component>
+  <component :is="components[props.part.partType]" :part="props.part" @update-content="updateContent"></component>
 </template>
 
 <script setup>
@@ -11,9 +11,11 @@ const props = defineProps({
   part: Object,
 })
 
-const currentPart = computed(() => {
-  return props.part
-});
+const emit = defineEmits(['updatePartContent'])
+
+const updateContent = (payload) => {
+  emit('updatePartContent', payload);
+}
 
 const components = {
   'xml': Editor,

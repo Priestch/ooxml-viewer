@@ -10,6 +10,10 @@ export function formatXML(value) {
   })
 }
 
-export function formatXMLBeautify(value) {
+export function beautifyXML(value) {
   return vkbeautify.xml(value, 2);
+}
+
+export function minXML(text) {
+  return vkbeautify.xmlmin(text, true);
 }
