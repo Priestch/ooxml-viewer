@@ -208,7 +208,7 @@ function openFileDialog(event) {
         return {
           defaultPath: dir,
           directory: false,
-          filters: [{name: 'Office Files', extensions: ['docx']}],
+          filters: [{name: 'Office Files', extensions: ['docx', 'xlsx', 'pptx']}],
           multiple: false,
         };
       });
