@@ -2,11 +2,11 @@
 
 name: publish ooxml viewer
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ release ]
+    branches: [release]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -24,28 +24,28 @@ jobs:
 
     runs-on: ${{ matrix.platform }}
     steps:
-    - uses: actions/checkout@v2
-    - name: setup node
-      uses: actions/setup-node@v1
-      with:
-        node-version: 12
-    - name: install Rust stable
-      uses: actions-rs/toolchain@v1
-      with:
-        toolchain: stable
-    - name: install webkit2gtk (ubuntu only)
-      if: matrix.platform == 'ubuntu-latest'
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y webkit2gtk-4.0
-    - name: install app dependencies and build it
-      run: yarn && yarn build
-    - uses: tauri-apps/tauri-action@v0
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
-        releaseName: "Open Office XML Viewer v__VERSION__"
-        body: "See the assets to download this version and install."
-        draft: true
-        prerelease: false
+      - uses: actions/checkout@v2
+      - name: setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: install Rust stable
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+      - name: install webkit2gtk (ubuntu only)
+        if: matrix.platform == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y webkit2gtk-4.0
+      - name: install app dependencies and build it
+        run: yarn && yarn build
+      - uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version
+          releaseName: "Open Office XML Viewer v__VERSION__"
+          body: "See the assets to download this version and install."
+          draft: true
+          prerelease: false

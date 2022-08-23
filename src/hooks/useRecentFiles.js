@@ -1,7 +1,7 @@
-import { ref } from 'vue';
+import { ref } from "vue";
 
 function loadRecentFiles() {
-  const recentFiles = localStorage.getItem('recentFiles');
+  const recentFiles = localStorage.getItem("recentFiles");
   return recentFiles ? JSON.parse(recentFiles) : [];
 }
 
@@ -10,7 +10,7 @@ function setRecentFiles(recentFiles) {
   for (const file of recentFiles) {
     files.push(file);
   }
-  localStorage.setItem('recentFiles', JSON.stringify(files));
+  localStorage.setItem("recentFiles", JSON.stringify(files));
 }
 
 export default function useRecentFiles(size = 5) {
@@ -26,7 +26,7 @@ export default function useRecentFiles(size = 5) {
     }
     recordsValue.push(record);
     if (recordsValue.length > size) {
-      recordsValue.shift()
+      recordsValue.shift();
     }
 
     setRecentFiles(recordsValue);
@@ -35,5 +35,5 @@ export default function useRecentFiles(size = 5) {
   return {
     addRecord,
     records,
-  }
+  };
 }

@@ -1,13 +1,13 @@
-import vkbeautify from 'vkbeautify';
-import prettier from 'prettier/standalone'
-import xmlPlugin from '@prettier/plugin-xml'
+import vkbeautify from "vkbeautify";
+import prettier from "prettier/standalone";
+import xmlPlugin from "@prettier/plugin-xml";
 
 export function formatXML(value) {
   return prettier.format(value, {
-    parser: 'xml',
+    parser: "xml",
     plugins: [xmlPlugin],
-    xmlWhitespaceSensitivity: 'ignore',
-  })
+    xmlWhitespaceSensitivity: "ignore",
+  });
 }
 
 export function beautifyXML(value) {
