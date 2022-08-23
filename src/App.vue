@@ -1,5 +1,12 @@
 <script setup>
 import './assets/app.css'
+import {onMounted} from "vue";
+import {useRouter} from "vue-router";
+
+onMounted(() => {
+  const router = useRouter();
+  router.push({ path: "/" })
+})
 </script>
 
 <template>

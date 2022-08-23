@@ -1,8 +1,9 @@
-import Document from './views/Document.vue';
 import { createRouter, createWebHashHistory } from "vue-router";
+import Document from './views/Document.vue';
+import Home from './views/Home.vue';
 
 const routes = [
-  { path: '/', redirect: '/document' },
+  { path: '/', component: Home },
   { path: '/document', component: Document },
 ]
 
