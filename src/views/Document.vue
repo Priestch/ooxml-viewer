@@ -36,6 +36,7 @@ import {
   NLayoutSider,
   NTree,
   NSpin,
+  NIcon,
 } from "naive-ui";
 import { FolderFilled } from "@vicons/antd";
 import { Image, Xml } from "@vicons/carbon";

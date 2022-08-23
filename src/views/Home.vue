@@ -33,7 +33,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { NGrid, NGi, NIcon, NDataTable } from "naive-ui";
+import { NGrid, NGi, NIcon, NDataTable, NModal } from "naive-ui";
 import { CloudUploadOutlined } from "@vicons/material";
 import { homeDir, sep } from "@tauri-apps/api/path";
 import { open } from "@tauri-apps/api/dialog";
