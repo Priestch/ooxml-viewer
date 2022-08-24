@@ -20,6 +20,8 @@ based on [CodeMirror](https://github.com/codemirror/codemirror.next/) and [Tauri
 - [x] record opened file history
 - [ ] modify history
 
+# Screenshots
+
 ## Open
 
 ![Open](./src/assets/open.png)
