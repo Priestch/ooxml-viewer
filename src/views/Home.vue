@@ -10,7 +10,7 @@
   >
     <n-grid cols="1 800:2" style="min-height: 500px" :item-response="true">
       <n-gi class="left-section">
-        <div class="column-content" @click="openFileDialog">
+        <div class="column-content" @click="selectFile">
           <n-icon size="40">
             <cloud-upload-outlined />
           </n-icon>
@@ -38,10 +38,12 @@ import { CloudUploadOutlined } from "@vicons/material";
 import { homeDir, sep } from "@tauri-apps/api/path";
 import { open } from "@tauri-apps/api/dialog";
 import useRecentFiles from "../hooks/useRecentFiles";
+import useFileUtils from "../hooks/useFileUtils";
 
 const router = useRouter();
 
 const { records, addRecord } = useRecentFiles();
+const { openFileDialog } = useFileUtils();
 
 const historyRecords = records.value.map((record, index) => {
   return {
@@ -77,25 +79,9 @@ const modalStyle = {
   "--n-padding-bottom": 0,
 };
 
-function openFileDialog(event) {
-  const dialogOptionsPromise = homeDir().then((dir) => {
-    return {
-      defaultPath: dir,
-      directory: false,
-      filters: [{ name: "Office Files", extensions: ["docx", "xlsx", "pptx"] }],
-      multiple: false,
-    };
-  });
-
-  dialogOptionsPromise
-    .then(open)
-    .then((filePath) => {
-      router.push({ path: "/document", query: { filePath } });
-      return filePath;
-    })
-    .catch((reason) => {
-      console.error("reason", reason);
-    });
+async function selectFile() {
+  const filePath = await openFileDialog();
+  router.push({ path: "/document", query: { filePath } });
 }
 </script>
 
