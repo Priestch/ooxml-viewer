@@ -8,11 +8,11 @@ use tauri::{CustomMenuItem, Menu, MenuItem, Submenu};
 fn main() {
   // here `"quit".to_string()` defines the menu item id, and the second parameter is the menu item label.
   let open = CustomMenuItem::new("open".to_string(), "Open");
-  let export = CustomMenuItem::new("export".to_string(), "Export");
+  // let export = CustomMenuItem::new("export".to_string(), "Export");
   let quit = CustomMenuItem::new("quit".to_string(), "Quit");
   let file_menu = Menu::new()
       .add_item(open)
-      .add_item(export)
+      // .add_item(export)
       .add_item(quit);
 
   let maximum = CustomMenuItem::new("maximum".to_string(), "Maximum");
