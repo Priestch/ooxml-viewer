@@ -1,13 +1,13 @@
 lockfileVersion: 5.4
 
 specifiers:
-  "@codemirror/commands": ^6.0.1
-  "@codemirror/lang-xml": ^6.0.0
-  "@codemirror/language": 6.6.0
-  "@codemirror/search": ^6.0.1
-  "@codemirror/state": ^6.1.1
-  "@codemirror/theme-one-dark": ^6.0.0
-  "@codemirror/view": ^6.2.0
+  "@codemirror/commands": ^6.2.1
+  "@codemirror/lang-xml": ^6.0.2
+  "@codemirror/language": ^6.6.0
+  "@codemirror/search": ^6.2.3
+  "@codemirror/state": ^6.2.0
+  "@codemirror/theme-one-dark": ^6.1.1
+  "@codemirror/view": ^6.9.1
   "@prettier/plugin-xml": ^2.2.0
   "@tauri-apps/api": ^1.0.2
   "@tauri-apps/cli": ^1.2.3
@@ -1212,7 +1212,10 @@ packages:
       to-regex-range: 5.0.1
 
   /fsevents/2.3.2:
-    resolution: { integrity: sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro= }
+    resolution:
+      {
+        integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==,
+      }
     engines: { node: ^8.16.0 || ^10.6.0 || >=11.0.0 }
     os: [darwin]
     requiresBuild: true
@@ -1372,7 +1375,10 @@ packages:
     dev: true
 
   /linq/3.2.4:
-    resolution: { integrity: sha1-XhW3qF0rnVIRZqIuDPnFVgRSrX8= }
+    resolution:
+      {
+        integrity: sha512-WIgtcH1EHHTXI/Qt/V3JH8D8j46ZiMJu1fynCzhAXtPYDAtV208BRmzpE2EhDq8KhoBAMVRL7KPH1khvHFstlw==,
+      }
     dev: false
 
   /lint-staged/13.1.2:
