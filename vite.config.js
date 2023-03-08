@@ -1,5 +1,18 @@
 import { defineConfig } from "vite";
+import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
+
+const alias = {
+  "@tauri-apps/api/dialog.js": "@tauri-apps/api/dialog.js",
+  "@tauri-apps/api/fs.js": "@tauri-apps/api/fs.js",
+  "@tauri-apps/api/path.js": "@tauri-apps/api/path.js",
+};
+
+if (!process.env.TAURI_PLATFORM) {
+  alias["@tauri-apps/api/dialog.js"] = resolve(__dirname, "./src/fake-tauri-apps.js");
+  alias["@tauri-apps/api/fs.js"] = resolve(__dirname, "./src/fake-tauri-apps.js");
+  alias["@tauri-apps/api/path.js"] = resolve(__dirname, "./src/fake-tauri-apps.js");
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -12,6 +25,9 @@ export default defineConfig({
   server: {
     port: 1420,
     strictPort: true,
+  },
+  resolve: {
+    alias,
   },
   // to make use of `TAURI_DEBUG` and other env variables
   // https://tauri.studio/v1/api/config#buildconfig.beforedevcommand

@@ -17,3 +17,18 @@ export function beautifyXML(value) {
 export function minXML(text) {
   return vkbeautify.xmlmin(text, true);
 }
+
+export function createPromise() {
+  let promiseResolve, promiseReject;
+
+  const promise = new Promise((resolve, reject) => {
+    promiseResolve = resolve;
+    promiseReject = reject;
+  });
+
+  return {
+    promise,
+    resolve: promiseResolve,
+    reject: promiseReject,
+  };
+}

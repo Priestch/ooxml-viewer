@@ -35,8 +35,6 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { NGrid, NGi, NIcon, NDataTable, NModal } from "naive-ui";
 import { CloudUploadOutlined } from "@vicons/material";
-import { homeDir, sep } from "@tauri-apps/api/path";
-import { open } from "@tauri-apps/api/dialog";
 import useRecentFiles from "../hooks/useRecentFiles";
 import useFileUtils from "../hooks/useFileUtils";
 
@@ -80,8 +78,8 @@ const modalStyle = {
 };
 
 async function selectFile() {
-  const filePath = await openFileDialog();
-  router.push({ path: "/document", query: { filePath } });
+  const documentQuery = await openFileDialog();
+  router.push({ path: "/document", query: documentQuery });
 }
 </script>
 

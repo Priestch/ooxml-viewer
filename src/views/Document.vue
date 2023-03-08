@@ -43,11 +43,9 @@ import { Image, Xml } from "@vicons/carbon";
 import openxml from "openxml";
 import { computed, onMounted, ref, h, unref, toRaw, reactive, watchEffect } from "vue";
 import { useRoute } from "vue-router";
-import { save } from "@tauri-apps/api/dialog";
-import { readBinaryFile, writeBinaryFile } from "@tauri-apps/api/fs";
 import useRecentFiles from "../hooks/useRecentFiles";
-import { homeDir, sep } from "@tauri-apps/api/path";
 import PackagePart from "../components/PackagePart.vue";
+import { service } from "../service.js";
 
 const route = useRoute();
 const { records, addRecord } = useRecentFiles();
@@ -55,28 +53,31 @@ const { records, addRecord } = useRecentFiles();
 const docPackage = ref(null);
 const loadingFile$ = ref(true);
 
-async function readFile(filename) {
-  return readBinaryFile(filename).then((fileResult) => {
-    return {
-      filename,
-      fileResult,
-    };
-  });
-}
-
 watchEffect(async () => {
   loadingFile$.value = true;
 
-  const { filePath, fromHistory = false } = route.query;
-  const { filename, fileResult } = await readFile(filePath);
-  docPackage.value = new openxml.OpenXmlPackage(fileResult);
-  if (!fromHistory) {
-    const pathParts = filename.split(sep);
-    addRecord({
-      fullPath: filename,
-      name: pathParts[pathParts.length - 1],
+  let { filePath, fromHistory = false, url = "", filename = "" } = route.query;
+  let fileResult;
+  if (window.__TAURI__) {
+    let { filename, fileResult } = await service.getFile({ filename: filePath });
+    docPackage.value = new openxml.OpenXmlPackage(fileResult);
+  } else {
+    fetch(url).then(async function (response) {
+      const blob = await response.blob();
+      fileResult = await blob.arrayBuffer();
+      console.log("fileResult", fileResult);
+      docPackage.value = new openxml.OpenXmlPackage(fileResult);
     });
   }
+  // console.log("watchEffect", filename, fileResult);
+  // docPackage.value = new openxml.OpenXmlPackage(fileResult);
+  // if (!fromHistory) {
+  //   const pathParts = filename.split(sep);
+  //   addRecord({
+  //     fullPath: filename,
+  //     name: pathParts[pathParts.length - 1],
+  //   });
+  // }
 
   loadingFile$.value = false;
 });
@@ -151,30 +152,16 @@ const currentPart = computed(() => {
 });
 
 onMounted(() => {
-  homeDir().then((dir) => {
-    userHomeDir.value = dir;
-  });
+  // homeDir().then((dir) => {
+  //   userHomeDir.value = dir;
+  // });
 });
 
 function updatePartContent({ content, exportFile = false }) {
   const currentPart = docPackage.value.parts[activeUri.value];
   currentPart.data = content;
   if (exportFile) {
-    openExportDialog();
-  }
-}
-
-async function openExportDialog() {
-  const exportFilePath = await save({
-    defaultPath: userHomeDir.value,
-  });
-  const unrefPackage = toRaw(unref(docPackage.value));
-  const fileBlob = unrefPackage.saveToBlob();
-  const contents = await fileBlob.arrayBuffer();
-  try {
-    await writeBinaryFile({ path: exportFilePath, contents });
-  } catch (e) {
-    console.error(e);
+    service.exportFile(toRaw(unref(docPackage.value)));
   }
 }
 

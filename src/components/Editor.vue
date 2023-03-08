@@ -24,7 +24,7 @@ import { highlightSelectionMatches, searchKeymap, search } from "@codemirror/sea
 import { defaultKeymap } from "@codemirror/commands";
 import { xml } from "@codemirror/lang-xml";
 import { oneDark } from "@codemirror/theme-one-dark";
-import { onMounted, ref, watch, unref } from "vue";
+import { onMounted, ref, watch } from "vue";
 import { NButton, NSpace } from "naive-ui";
 
 const props = defineProps({
