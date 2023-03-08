@@ -11,6 +11,15 @@ import Editor from "./Editor.vue";
 import ImageViewer from "./ImageViewer.vue";
 import { computed } from "vue";
 
+function getContentType(part) {
+  if (part.contentType && part.contentType.startsWith("image")) {
+    return "image";
+  }
+
+  let items = part.uri.split(".");
+  return part.partType || items[items.length - 1];
+}
+
 const props = defineProps({
   part: Object,
 });
@@ -18,11 +27,7 @@ const props = defineProps({
 const emit = defineEmits(["updatePartContent"]);
 
 const partType$ = computed(() => {
-  if (props.part.contentType.startsWith("image")) {
-    return "image";
-  }
-
-  return props.part.partType;
+  return getContentType(props.part);
 });
 
 const updateContent = (payload) => {
