@@ -50,7 +50,7 @@ import { service } from "../service.js";
 const route = useRoute();
 const { records, addRecord } = useRecentFiles();
 
-const docPackage = ref(null);
+const docPackage$ = ref(null);
 const loadingFile$ = ref(true);
 
 watchEffect(async () => {
@@ -60,13 +60,13 @@ watchEffect(async () => {
   let fileResult;
   if (window.__TAURI__) {
     let { filename, fileResult } = await service.getFile({ filename: filePath });
-    docPackage.value = new openxml.OpenXmlPackage(fileResult);
+    docPackage$.value = new openxml.OpenXmlPackage(fileResult);
   } else {
     fetch(url).then(async function (response) {
       const blob = await response.blob();
       fileResult = await blob.arrayBuffer();
       console.log("fileResult", fileResult);
-      docPackage.value = new openxml.OpenXmlPackage(fileResult);
+      docPackage$.value = new openxml.OpenXmlPackage(fileResult);
     });
   }
   // console.log("watchEffect", filename, fileResult);
@@ -126,12 +126,12 @@ class Tree {
 }
 
 const treeData = computed(() => {
-  if (!docPackage.value) {
+  if (!docPackage$.value) {
     return [];
   }
 
   const tree = new Tree();
-  Object.values(docPackage.value.parts).forEach((part) => {
+  Object.values(docPackage$.value.parts).forEach((part) => {
     const leaf = Tree.parseLeafNode(part);
     tree.insertLeaf(leaf);
   });
@@ -139,12 +139,12 @@ const treeData = computed(() => {
   return tree.root.children;
 });
 
-const activeUri = ref(null);
-const userHomeDir = ref(null);
+const activeUri$ = ref(null);
+const userHomeDir$ = ref(null);
 
 const currentPart = computed(() => {
-  if (activeUri.value) {
-    const part = docPackage.value.parts[activeUri.value];
+  if (activeUri$.value) {
+    const part = docPackage$.value.parts[activeUri$.value];
     return reactive({
       ...toRaw(part),
     });
@@ -158,10 +158,10 @@ onMounted(() => {
 });
 
 function updatePartContent({ content, exportFile = false }) {
-  const currentPart = docPackage.value.parts[activeUri.value];
+  const currentPart = docPackage$.value.parts[activeUri$.value];
   currentPart.data = content;
   if (exportFile) {
-    service.exportFile(toRaw(unref(docPackage.value)));
+    service.exportFile(toRaw(unref(docPackage$.value)));
   }
 }
 
@@ -172,7 +172,7 @@ function handleSelectedKeysUpdate(keys, options) {
   const key = keys[0];
   const option = options[0];
   if (option.children.length === 0 && key) {
-    activeUri.value = key;
+    activeUri$.value = key;
   }
 }
 

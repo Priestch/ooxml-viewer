@@ -1,7 +1,7 @@
 <template>
   <div class="image-viewer">
-    <figure v-if="imageRef">
-      <img :src="imageRef" :class="part.contentType === 'image/svg+xml' ? 'svg' : ''" />
+    <figure v-if="imageRef$">
+      <img :src="imageRef$" :class="part.contentType === 'image/svg+xml' ? 'svg' : ''" />
       <figcaption></figcaption>
     </figure>
   </div>
@@ -11,8 +11,8 @@
 import { ref, onMounted, watch, onBeforeUnmount } from "vue";
 import { transformTo } from "jszip/lib/utils.js";
 
-const canvasRef = ref(null);
-const imageRef = ref(null);
+const canvasRef$ = ref(null);
+const imageRef$ = ref(null);
 
 const props = defineProps({
   part: Object,
@@ -21,7 +21,7 @@ const props = defineProps({
 function drawImage(part) {
   const imageData = transformTo("uint8array", part.data);
   const objURL = URL.createObjectURL(new Blob([imageData.buffer], { type: part.contentType }));
-  imageRef.value = objURL;
+  imageRef$.value = objURL;
 }
 
 function revokeImageUrl(url) {
@@ -31,20 +31,20 @@ function revokeImageUrl(url) {
 watch(
   () => props.part,
   () => {
-    if (imageRef.value) {
-      revokeImageUrl(imageRef.value);
+    if (imageRef$.value) {
+      revokeImageUrl(imageRef$.value);
     }
-    drawImage(props.part, canvasRef.value);
+    drawImage(props.part, canvasRef$.value);
   }
 );
 
 onMounted(() => {
-  drawImage(props.part, canvasRef.value);
+  drawImage(props.part, canvasRef$.value);
 });
 
 onBeforeUnmount(() => {
-  if (imageRef.value) {
-    revokeImageUrl(imageRef.value);
+  if (imageRef$.value) {
+    revokeImageUrl(imageRef$.value);
   }
 });
 </script>

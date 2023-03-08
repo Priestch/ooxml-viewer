@@ -4,7 +4,7 @@
       Export
     </n-button>
   </n-space>
-  <div id="editor" ref="rootRef"></div>
+  <div id="editor" ref="rootRef$"></div>
 </template>
 
 <script setup>
@@ -78,20 +78,20 @@ function createEditorView(data, parent) {
 }
 
 function exportAsFile() {
-  const xmlContent = editorView.value.state.doc.toJSON().join("\n");
+  const xmlContent = editorView$.value.state.doc.toJSON().join("\n");
   const content = openxml.util.encode_utf8(minXML(xmlContent));
   emit("updateContent", { content, exportFile: true });
 }
 
-const editorView = ref(null);
-const rootRef = ref(null);
+const editorView$ = ref(null);
+const rootRef$ = ref(null);
 
 watch(
   () => props.part.data,
   () => {
-    if (editorView.value) {
-      editorView.value.destroy();
-      editorView.value = createEditorView(props.part.data, rootRef.value);
+    if (editorView$.value) {
+      editorView$.value.destroy();
+      editorView$.value = createEditorView(props.part.data, rootRef$.value);
       editorContentChanged$.value = false;
       // editorView.value.setState(createEditorState(props.part.data));
     }
@@ -99,7 +99,7 @@ watch(
 );
 
 onMounted(() => {
-  editorView.value = createEditorView(props.part.data, rootRef.value);
+  editorView$.value = createEditorView(props.part.data, rootRef$.value);
 });
 </script>
 

@@ -1,6 +1,6 @@
 <template>
   <n-modal
-    v-model:show="modalVisible"
+    v-model:show="modalVisible$"
     class="welcome-modal"
     transform-origin="center"
     preset="card"
@@ -70,7 +70,7 @@ const rowProps = (row) => {
   };
 };
 
-const modalVisible = ref(true);
+const modalVisible$ = ref(true);
 const modalStyle = {
   "--n-padding-left": 0,
   "--n-padding-right": 0,
