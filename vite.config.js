@@ -3,15 +3,15 @@ import { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
 
 const alias = {
-  "@tauri-apps/api/dialog.js": "@tauri-apps/api/dialog.js",
-  "@tauri-apps/api/fs.js": "@tauri-apps/api/fs.js",
-  "@tauri-apps/api/path.js": "@tauri-apps/api/path.js",
+  "@tauri-apps/api/dialog": "@tauri-apps/api/dialog",
+  "@tauri-apps/api/fs": "@tauri-apps/api/fs",
+  "@tauri-apps/api/path": "@tauri-apps/api/path",
 };
 
 if (!process.env.TAURI_PLATFORM) {
-  alias["@tauri-apps/api/dialog.js"] = resolve(__dirname, "./src/fake-tauri-apps.js");
-  alias["@tauri-apps/api/fs.js"] = resolve(__dirname, "./src/fake-tauri-apps.js");
-  alias["@tauri-apps/api/path.js"] = resolve(__dirname, "./src/fake-tauri-apps.js");
+  alias["@tauri-apps/api/dialog"] = resolve(__dirname, "./src/fake-tauri-apps.js");
+  alias["@tauri-apps/api/fs"] = resolve(__dirname, "./src/fake-tauri-apps.js");
+  alias["@tauri-apps/api/path"] = resolve(__dirname, "./src/fake-tauri-apps.js");
 }
 
 // https://vitejs.dev/config/

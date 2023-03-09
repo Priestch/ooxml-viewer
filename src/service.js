@@ -1,7 +1,7 @@
-import { open, save } from "@tauri-apps/api/dialog.js";
+import { open, save } from "@tauri-apps/api/dialog";
 import { createPromise } from "./utils.js";
-import { readBinaryFile, writeBinaryFile } from "@tauri-apps/api/fs.js";
-import { homeDir } from "@tauri-apps/api/path.js";
+import { readBinaryFile, writeBinaryFile } from "@tauri-apps/api/fs";
+import { homeDir } from "@tauri-apps/api/path";
 
 const userHomeDir = createPromise();
 
@@ -29,7 +29,7 @@ function createService(isDesktop = false) {
   return {
     async openFileDialog() {
       if (isDesktop) {
-        const dir = await userHomeDir.value.promise;
+        const dir = await userHomeDir.promise;
         const dialogOptions = {
           defaultPath: dir,
           directory: false,
@@ -97,6 +97,6 @@ function createService(isDesktop = false) {
   };
 }
 
-const service = createService();
+const service = createService(Boolean(window.__TAURI__));
 
 export { service };
