@@ -1,9 +1,9 @@
 <template>
-  <n-space class="editor-header">
-    <n-button type="primary" :disabled="!editorContentChanged$" @click="exportAsFile">
-      Export
-    </n-button>
-  </n-space>
+  <!--  <n-space class="editor-header">-->
+  <!--    <n-button type="primary" :disabled="!editorContentChanged$" @click="exportAsFile">-->
+  <!--      Export-->
+  <!--    </n-button>-->
+  <!--  </n-space>-->
   <div id="editor" ref="rootRef$"></div>
 </template>
 
@@ -104,9 +104,9 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-.editor-header {
-  padding: 1em;
-}
+//.editor-header {
+//  padding: 1em;
+//}
 #editor {
   height: 100%;
   & :deep(.cm-editor) {

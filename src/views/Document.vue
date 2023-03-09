@@ -17,11 +17,27 @@
         />
       </n-layout-sider>
       <n-layout-content>
-        <package-part
-          v-if="currentPart"
-          :part="currentPart"
-          @update-part-content="updatePartContent"
-        ></package-part>
+        <n-tabs
+          v-model:value="activeTab$"
+          type="card"
+          closable
+          tab-style="min-width: 80px;"
+          @update:value="onTabChange"
+          @close="handleTabClose"
+        >
+          <n-tab-pane
+            v-for="partUri in openParts$"
+            :key="partUri"
+            :tab="partUri.toString()"
+            :name="partUri"
+            display-directive="show:lazy"
+          >
+            <package-part
+              :part="getPart(partUri, docPackage$)"
+              @update-part-content="updatePartContent"
+            ></package-part>
+          </n-tab-pane>
+        </n-tabs>
       </n-layout-content>
     </n-layout>
   </n-spin>
@@ -36,22 +52,47 @@ import {
   NLayoutSider,
   NTree,
   NSpin,
+  NTabs,
+  NTabPane,
   NIcon,
 } from "naive-ui";
 import { FolderFilled } from "@vicons/antd";
 import { Image, Xml } from "@vicons/carbon";
 import openxml from "openxml";
-import { computed, onMounted, ref, h, unref, toRaw, reactive, watchEffect } from "vue";
+import { computed, onMounted, ref, h, unref, toRaw, reactive, watchEffect, watch } from "vue";
 import { useRoute } from "vue-router";
 import useRecentFiles from "../hooks/useRecentFiles";
 import PackagePart from "../components/PackagePart.vue";
 import { service } from "../service.js";
+import { createTree } from "../ooxml-utils.js";
+
+function getPart(activeUri, docPackage) {
+  if (activeUri) {
+    const part = docPackage.parts[activeUri];
+    return reactive({
+      ...toRaw(part),
+    });
+  }
+}
+
+function handleTabClose(name) {
+  if (name === activeUri$.value) {
+    const currentIndex = openParts$.value.indexOf(name);
+    if (currentIndex - 1 >= 0) {
+      activeTab$.value = openParts$.value[currentIndex - 1];
+    }
+  }
+  openParts$.value = openParts$.value.filter((i) => i !== name);
+}
 
 const route = useRoute();
 const { records, addRecord } = useRecentFiles();
 
 const docPackage$ = ref(null);
 const loadingFile$ = ref(true);
+const openParts$ = ref([]);
+
+const activeTab$ = ref(null);
 
 watchEffect(async () => {
   loadingFile$.value = true;
@@ -82,73 +123,25 @@ watchEffect(async () => {
   loadingFile$.value = false;
 });
 
-class Tree {
-  constructor() {
-    this.root = {
-      children: [],
-    };
-  }
-
-  insertLeaf(leaf) {
-    const segments = leaf.key.split("/").filter(Boolean);
-    const parentSegments = segments.slice(0, -1);
-    let parent = this.root;
-    for (let i = 0; i < parentSegments.length; i++) {
-      const key = parentSegments.slice(0, i + 1).join("/");
-      let treeNode = parent.children.find((i) => i.key === key);
-      if (!treeNode) {
-        treeNode = {
-          key: key,
-          label: parentSegments[i],
-          children: [],
-        };
-        parent.children.push(treeNode);
-      }
-      parent = treeNode;
-    }
-
-    parent.children.push(leaf);
-  }
-
-  static parseLeafNode(part) {
-    const isBinary = part.partType === "binary";
-    return {
-      key: part.uri,
-      label: part.uri,
-      children: [],
-      isLeaf: true,
-      prefix() {
-        const icon = isBinary ? Image : Xml;
-        return h(NIcon, null, { default: () => h(icon) });
-      },
-    };
-  }
-}
-
 const treeData = computed(() => {
-  if (!docPackage$.value) {
-    return [];
-  }
-
-  const tree = new Tree();
-  Object.values(docPackage$.value.parts).forEach((part) => {
-    const leaf = Tree.parseLeafNode(part);
-    tree.insertLeaf(leaf);
-  });
-
-  return tree.root.children;
+  return createTree(docPackage$.value);
 });
 
 const activeUri$ = ref(null);
 const userHomeDir$ = ref(null);
 
 const currentPart = computed(() => {
-  if (activeUri$.value) {
-    const part = docPackage$.value.parts[activeUri$.value];
-    return reactive({
-      ...toRaw(part),
-    });
+  return getPart(activeUri$.value, docPackage$.value);
+});
+
+watch(activeUri$, () => {
+  const exists = openParts$.value.find((i) => {
+    return i === activeUri$.value;
+  });
+  if (activeUri$.value && !exists) {
+    openParts$.value.push(activeUri$.value);
   }
+  activeTab$.value = activeUri$.value;
 });
 
 onMounted(() => {
@@ -180,6 +173,10 @@ function renderSwitcherIcon() {
   return h(NIcon, null, { default: () => h(FolderFilled) });
 }
 
+function onTabChange(val) {
+  console.log("onTabChange", val);
+}
+
 const treeStyle = {
   "--n-font-size": "1.2em",
 };
@@ -192,5 +189,13 @@ const treeStyle = {
 
 .n-spin-container {
   height: 100%;
+}
+
+.n-tabs {
+  height: 100%;
+
+  ::v-deep(.n-tab-pane) {
+    height: 100%;
+  }
 }
 </style>
