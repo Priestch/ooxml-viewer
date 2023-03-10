@@ -1,39 +1,44 @@
 <template>
   <n-spin :show="loadingFile$">
     <n-layout :has-sider="true" class="package-viewer" position="absolute">
-      <n-layout-sider
-        content-style="padding: 20px 10px;"
-        :bordered="true"
-        collapse-mode="width"
-        :width="400"
-      >
-        <n-tree
-          block-line
-          :data="treeData"
-          @update:selected-keys="handleSelectedKeysUpdate"
-          :render-switcher-icon="renderSwitcherIcon"
-          :style="treeStyle"
-          selectable
-        />
+      <n-layout-sider :bordered="true" collapse-mode="width" :width="400">
+        <n-card siz="small">
+          <n-space>
+            <n-button type="primary" :disabled="!fileChanged$" @click="exportAsFile">
+              Export
+            </n-button>
+          </n-space>
+        </n-card>
+        <div class="package-tree">
+          <n-tree
+            block-line
+            :data="treeData"
+            @update:selected-keys="handleSelectedKeysUpdate"
+            :render-switcher-icon="renderSwitcherIcon"
+            :style="treeStyle"
+            selectable
+          />
+        </div>
       </n-layout-sider>
       <n-layout-content>
         <n-tabs
+          class="part-tabs"
           v-model:value="activeTab$"
           type="card"
           closable
-          tab-style="min-width: 80px;"
           @update:value="onTabChange"
           @close="handleTabClose"
         >
           <n-tab-pane
-            v-for="partUri in openParts$"
-            :key="partUri"
-            :tab="partUri.toString()"
-            :name="partUri"
+            v-for="part in openParts$"
+            :key="part.uri"
+            :name="part.uri"
+            :class="{ modified: part.modified }"
+            :tab="createPartTab(part)"
             display-directive="show:lazy"
           >
             <package-part
-              :part="getPart(partUri, docPackage$)"
+              :part="getPart(part.uri, docPackage$)"
               @update-part-content="updatePartContent"
             ></package-part>
           </n-tab-pane>
@@ -54,7 +59,12 @@ import {
   NSpin,
   NTabs,
   NTabPane,
+  NBadge,
   NIcon,
+  NButton,
+  NCard,
+  NSpace,
+  NDivider,
 } from "naive-ui";
 import { FolderFilled } from "@vicons/antd";
 import { Image, Xml } from "@vicons/carbon";
@@ -75,22 +85,35 @@ function getPart(activeUri, docPackage) {
   }
 }
 
-function handleTabClose(name) {
-  if (name === activeUri$.value) {
-    const currentIndex = openParts$.value.indexOf(name);
+function handleTabClose(uri) {
+  if (uri === activeUri$.value) {
+    const currentIndex = openParts$.value.findIndex(function (i) {
+      return i.uri === uri;
+    });
     if (currentIndex - 1 >= 0) {
-      activeTab$.value = openParts$.value[currentIndex - 1];
+      activeTab$.value = openParts$.value[currentIndex - 1].uri;
     }
   }
-  openParts$.value = openParts$.value.filter((i) => i !== name);
+  openParts$.value = openParts$.value.filter((i) => i.uri !== uri);
+}
+
+function createPartTab(part) {
+  if (part.modified) {
+    return h("div", {}, [h(NBadge, { offset: [5, 0], dot: true }, [h("span", {}, part.uri)])]);
+  }
+  return h("span", {}, part.uri);
 }
 
 const route = useRoute();
 const { records, addRecord } = useRecentFiles();
 
+const filename$ = ref("");
+
 const docPackage$ = ref(null);
 const loadingFile$ = ref(true);
 const openParts$ = ref([]);
+
+const fileChanged$ = ref(false);
 
 const activeTab$ = ref(null);
 
@@ -98,6 +121,7 @@ watchEffect(async () => {
   loadingFile$.value = true;
 
   let { filePath, fromHistory = false, url = "", filename = "" } = route.query;
+  filename$.value = filename;
   let fileResult;
   if (window.__TAURI__) {
     let { filename, fileResult } = await service.getFile({ filename: filePath });
@@ -136,10 +160,13 @@ const currentPart = computed(() => {
 
 watch(activeUri$, () => {
   const exists = openParts$.value.find((i) => {
-    return i === activeUri$.value;
+    return i.uri === activeUri$.value;
   });
   if (activeUri$.value && !exists) {
-    openParts$.value.push(activeUri$.value);
+    openParts$.value.push({
+      uri: activeUri$.value,
+      modified: false,
+    });
   }
   activeTab$.value = activeUri$.value;
 });
@@ -150,12 +177,27 @@ onMounted(() => {
   // });
 });
 
-function updatePartContent({ content, exportFile = false }) {
+function exportAsFile() {
+  service.exportFile(toRaw(unref(docPackage$.value)), filename$.value);
+  openParts$.value = openParts$.value.map(function (part) {
+    return {
+      uri: part.uri,
+      modified: false,
+    };
+  });
+}
+
+function updatePartContent({ content, uri }) {
+  fileChanged$.value = true;
+
+  const tab = openParts$.value.find(function (i) {
+    return i.uri === uri;
+  });
+  if (tab) {
+    tab.modified = true;
+  }
   const currentPart = docPackage$.value.parts[activeUri$.value];
   currentPart.data = content;
-  if (exportFile) {
-    service.exportFile(toRaw(unref(docPackage$.value)));
-  }
 }
 
 function handleSelectedKeysUpdate(keys, options) {
@@ -191,11 +233,19 @@ const treeStyle = {
   height: 100%;
 }
 
-.n-tabs {
+.package-tree {
+  padding: 20px 10px;
+}
+
+.part-tabs {
   height: 100%;
 
   ::v-deep(.n-tab-pane) {
     height: 100%;
+  }
+
+  ::v-deep(.n-tabs-tab__close) {
+    margin-left: 8px;
   }
 }
 </style>

@@ -31,7 +31,10 @@ const partType$ = computed(() => {
 });
 
 const updateContent = (payload) => {
-  emit("updatePartContent", payload);
+  emit("updatePartContent", {
+    uri: props.part.uri,
+    content: payload.content,
+  });
 };
 
 const components = {

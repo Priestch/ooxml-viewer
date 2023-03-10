@@ -21,8 +21,16 @@ function getFileUseTauri(filename) {
   });
 }
 
-function getFileUseBrowser(fileHash) {
-  return fetch();
+async function saveFileUseTauri(fileContent) {
+  const defaultPath = await userHomeDir.promise;
+  const exportFilePath = await save({
+    defaultPath,
+  });
+  try {
+    await writeBinaryFile({ path: exportFilePath, contents: fileContent });
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 function createService(isDesktop = false) {
@@ -60,6 +68,7 @@ function createService(isDesktop = false) {
           resolve({
             filePath: url.pathname.replace(url.origin, "").slice(1),
             url: blobUrl,
+            filename: files[0].name,
           });
         }
 
@@ -81,17 +90,18 @@ function createService(isDesktop = false) {
         });
       }
     },
-    async exportFile(docPackage) {
-      const defaultPath = await userHomeDir.promise;
-      const exportFilePath = await save({
-        defaultPath,
-      });
+    async exportFile(docPackage, filename = "") {
       const fileBlob = docPackage.saveToBlob();
-      const contents = await fileBlob.arrayBuffer();
-      try {
-        await writeBinaryFile({ path: exportFilePath, contents });
-      } catch (e) {
-        console.error(e);
+      if (window.__TAURI__) {
+        const fileContent = await fileBlob.arrayBuffer();
+        await saveFileUseTauri(fileContent);
+      } else {
+        const url = window.URL.createObjectURL(fileBlob);
+        const anchorEl = document.createElement("a");
+        anchorEl.href = url;
+        anchorEl.download = filename;
+        anchorEl.click();
+        window.URL.revokeObjectURL(url);
       }
     },
   };
