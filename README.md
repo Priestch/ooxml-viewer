@@ -20,12 +20,6 @@ based on [CodeMirror](https://github.com/codemirror/codemirror.next/) and [Tauri
 - [x] record opened file history
 - [ ] modify history
 
-# Screenshots
+# Demo
 
-## Open
-
-![Open](./src/assets/open.png)
-
-## View
-
-![View](./src/assets/part_view.png)
+Visit [OOXml Viewer](https://priestch.github.io/ooxml-viewer/)
