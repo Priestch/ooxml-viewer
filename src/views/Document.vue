@@ -245,7 +245,8 @@ const treeStyle = {
   height: 100%;
 
   ::v-deep(.n-tab-pane) {
-    height: 100%;
+    height: calc(100% - 39px);
+    overflow: auto;
   }
 
   ::v-deep(.n-tabs-tab__close) {
