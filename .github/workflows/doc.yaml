@@ -1,9 +1,9 @@
 name: Deploy Doc
-on:
-  workflow_dispatch: {}
-  push:
-    branches:
-      - main
+#on:
+#  workflow_dispatch: {}
+#  push:
+#    branches:
+#      - main
 
 env:
   NODE_OPTIONS: "--max-old-space-size=4096"
@@ -50,7 +50,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: pnpm run build
+        run: pnpm run build --base=/ooxml-viewer/
 
       - uses: actions/configure-pages@v2
       - uses: actions/upload-pages-artifact@v1
