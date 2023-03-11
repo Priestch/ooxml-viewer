@@ -1,9 +1,9 @@
 name: Deploy Doc
-#on:
-#  workflow_dispatch: {}
-#  push:
-#    branches:
-#      - main
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - 404
 
 env:
   NODE_OPTIONS: "--max-old-space-size=4096"
