@@ -1,7 +1,10 @@
 import { ref } from "vue";
 
+const HISTORY_KEY = "recentFiles";
+const storage = window.__TAURI__ ? localStorage : sessionStorage;
+
 function loadRecentFiles() {
-  const recentFiles = localStorage.getItem("recentFiles");
+  const recentFiles = storage.getItem(HISTORY_KEY);
   return recentFiles ? JSON.parse(recentFiles) : [];
 }
 
@@ -10,16 +13,21 @@ function setRecentFiles(recentFiles) {
   for (const file of recentFiles) {
     files.push(file);
   }
-  localStorage.setItem("recentFiles", JSON.stringify(files));
+  storage.setItem(HISTORY_KEY, JSON.stringify(files));
+}
+
+const records = ref(loadRecentFiles());
+
+function clearRecords() {
+  records.value = [];
+  storage.removeItem(HISTORY_KEY);
 }
 
 export default function useRecentFiles(size = 5) {
-  const records = ref(loadRecentFiles());
-
   function addRecord(record) {
     const recordsValue = records.value;
     const recordExists = recordsValue.find((current) => {
-      return current.fullPath === record.fullPath;
+      return current.filePath === record.filePath;
     });
     if (recordExists) {
       return;
@@ -35,5 +43,6 @@ export default function useRecentFiles(size = 5) {
   return {
     addRecord,
     records,
+    clearRecords,
   };
 }

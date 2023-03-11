@@ -2,10 +2,13 @@
 import { appWindow } from "@tauri-apps/api/window";
 import "./assets/app.css";
 import { onMounted } from "vue";
+import useRecentFiles from "./hooks/useRecentFiles";
 import { useRouter } from "vue-router";
 import { service } from "./service.js";
 
 const router = useRouter();
+
+const { clearRecords } = useRecentFiles();
 
 if (window.__TAURI__) {
   appWindow.listen("open", async () => {
@@ -15,6 +18,9 @@ if (window.__TAURI__) {
 }
 
 onMounted(() => {
+  if (!window.__TAURI__) {
+    clearRecords();
+  }
   const router = useRouter();
   router.push({ path: "/" });
 });

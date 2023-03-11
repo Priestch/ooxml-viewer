@@ -62,7 +62,6 @@ function createService(isDesktop = false) {
         inputEl.setAttribute("type", "file");
         function handleFileChange(event) {
           const files = event.target.files;
-          console.log("files[0]", files[0]);
           const blobUrl = URL.createObjectURL(files[0]);
           const url = new URL(blobUrl);
           resolve({

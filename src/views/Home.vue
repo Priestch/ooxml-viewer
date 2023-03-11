@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 import { NGrid, NGi, NIcon, NDataTable, NModal } from "naive-ui";
 import { CloudUploadOutlined } from "@vicons/material";
@@ -40,14 +40,16 @@ import useFileUtils from "../hooks/useFileUtils";
 
 const router = useRouter();
 
-const { records, addRecord } = useRecentFiles();
+const { records } = useRecentFiles();
 const { openFileDialog } = useFileUtils();
 
-const historyRecords = records.value.map((record, index) => {
-  return {
-    key: index,
-    ...record,
-  };
+const historyRecords = computed(() => {
+  return records.value.map((record, index) => {
+    return {
+      key: index,
+      ...record,
+    };
+  });
 });
 
 const columns = [
@@ -65,7 +67,10 @@ const rowProps = (row) => {
   return {
     style: "cursor: pointer;",
     onClick: () => {
-      router.push({ path: "/document", query: { filePath: row.fullPath } });
+      router.push({
+        path: "/document",
+        query: { filePath: row.filePath, url: row.url, filename: row.filename },
+      });
     },
   };
 };

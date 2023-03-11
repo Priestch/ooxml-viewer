@@ -66,6 +66,7 @@ import {
   NSpace,
   NDivider,
 } from "naive-ui";
+import { sep } from "@tauri-apps/api/path";
 import { FolderFilled } from "@vicons/antd";
 import { Image, Xml } from "@vicons/carbon";
 import openxml from "openxml";
@@ -120,29 +121,32 @@ const activeTab$ = ref(null);
 watchEffect(async () => {
   loadingFile$.value = true;
 
-  let { filePath, fromHistory = false, url = "", filename = "" } = route.query;
+  let { filePath, url = "", filename = "" } = route.query;
   filename$.value = filename;
   let fileResult;
   if (window.__TAURI__) {
     let { filename, fileResult } = await service.getFile({ filename: filePath });
     docPackage$.value = new openxml.OpenXmlPackage(fileResult);
+    const pathParts = filename.split(sep);
+    addRecord({
+      filePath: filename,
+      name: pathParts[pathParts.length - 1],
+    });
   } else {
-    fetch(url).then(async function (response) {
+    const response = await fetch(url);
+    if (response.ok) {
       const blob = await response.blob();
       fileResult = await blob.arrayBuffer();
-      console.log("fileResult", fileResult);
       docPackage$.value = new openxml.OpenXmlPackage(fileResult);
-    });
+      addRecord({
+        filePath: filename,
+        name: filename,
+        url,
+      });
+    } else {
+      console.error("Failed to open file!");
+    }
   }
-  // console.log("watchEffect", filename, fileResult);
-  // docPackage.value = new openxml.OpenXmlPackage(fileResult);
-  // if (!fromHistory) {
-  //   const pathParts = filename.split(sep);
-  //   addRecord({
-  //     fullPath: filename,
-  //     name: pathParts[pathParts.length - 1],
-  //   });
-  // }
 
   loadingFile$.value = false;
 });
