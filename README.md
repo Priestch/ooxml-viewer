@@ -22,4 +22,4 @@ based on [CodeMirror](https://github.com/codemirror/codemirror.next/) and [Tauri
 
 # Demo
 
-Visit [OOXml Viewer](https://priestch.github.io/ooxml-viewer/)
+Visit https://priestch.github.io/ooxml-viewer/
