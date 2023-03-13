@@ -31,6 +31,8 @@ const largeFontPanel = EditorView.theme({
   ".cm-panels": { fontSize: "18px", padding: "6px 4px" },
 });
 
+let initialText = "";
+
 function createExtensions() {
   const basicSetup = [
     lineNumbers(),
@@ -49,8 +51,10 @@ function createExtensions() {
 
 function createEditorState(data) {
   const value = openxml.util.decode_utf8(data);
+  const doc = beautifyXML(value);
+  initialText = doc;
   return EditorState.create({
-    doc: beautifyXML(value),
+    doc,
     extensions: createExtensions(),
   });
 }
@@ -58,7 +62,8 @@ function createEditorState(data) {
 function dispatch(tr) {
   if (tr.docChanged) {
     const content = openxml.util.encode_utf8(minXML(tr.newDoc.toJSON().join("\n")));
-    emit("updateContent", { content });
+    const modified = tr.state.doc.sliceString(0) !== initialText;
+    emit("updateContent", { content, modified });
   }
   this.update([tr]);
 }
@@ -71,19 +76,8 @@ function createEditorView(data, parent) {
 const editorView$ = ref(null);
 const rootRef$ = ref(null);
 
-watch(
-  () => props.part.data,
-  () => {
-    if (editorView$.value) {
-      editorView$.value.destroy();
-      editorView$.value = createEditorView(props.part.data, rootRef$.value);
-      // editorView.value.setState(createEditorState(props.part.data));
-    }
-  }
-);
-
 onMounted(() => {
-  editorView$.value = createEditorView(props.part.data, rootRef$.value);
+  editorView$.value = createEditorView(props.part.originalContent, rootRef$.value);
 });
 </script>
 

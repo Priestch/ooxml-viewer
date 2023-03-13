@@ -34,6 +34,7 @@ const updateContent = (payload) => {
   emit("updatePartContent", {
     uri: props.part.uri,
     content: payload.content,
+    modified: payload.modified,
   });
 };
 

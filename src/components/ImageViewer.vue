@@ -19,7 +19,7 @@ const props = defineProps({
 });
 
 function drawImage(part) {
-  const imageData = transformTo("uint8array", part.data);
+  const imageData = transformTo("uint8array", part.originalContent);
   const objURL = URL.createObjectURL(new Blob([imageData.buffer], { type: part.contentType }));
   imageRef$.value = objURL;
 }

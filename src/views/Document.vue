@@ -33,14 +33,10 @@
             v-for="part in openParts$"
             :key="part.uri"
             :name="part.uri"
-            :class="{ modified: part.modified }"
             :tab="createPartTab(part)"
             display-directive="show:lazy"
           >
-            <package-part
-              :part="getPart(part.uri, docPackage$)"
-              @update-part-content="updatePartContent"
-            ></package-part>
+            <package-part :part="part" @update-part-content="updatePartContent"></package-part>
           </n-tab-pane>
         </n-tabs>
       </n-layout-content>
@@ -156,7 +152,6 @@ const treeData = computed(() => {
 });
 
 const activeUri$ = ref(null);
-const userHomeDir$ = ref(null);
 
 const currentPart = computed(() => {
   return getPart(activeUri$.value, docPackage$.value);
@@ -167,41 +162,42 @@ watch(activeUri$, () => {
     return i.uri === activeUri$.value;
   });
   if (activeUri$.value && !exists) {
+    const part = getPart(activeUri$.value, docPackage$.value);
     openParts$.value.push({
       uri: activeUri$.value,
       modified: false,
+      contentType: part.contentType,
+      partType: part.partType,
+      originalContent: part.data,
+      latestContent: part.data,
     });
   }
   activeTab$.value = activeUri$.value;
 });
 
-onMounted(() => {
-  // homeDir().then((dir) => {
-  //   userHomeDir.value = dir;
-  // });
-});
-
 function exportAsFile() {
-  service.exportFile(toRaw(unref(docPackage$.value)), filename$.value);
-  openParts$.value = openParts$.value.map(function (part) {
-    return {
-      uri: part.uri,
-      modified: false,
-    };
+  const docPackage = toRaw(unref(docPackage$.value));
+  openParts$.value.forEach(function (tabPart) {
+    const currentPart = docPackage.parts[tabPart.uri];
+    currentPart.data = tabPart.latestContent;
+  });
+  service.exportFile(docPackage, filename$.value);
+
+  openParts$.value.forEach(function (part) {
+    part.modified = false;
   });
 }
 
-function updatePartContent({ content, uri }) {
+function updatePartContent({ content, uri, modified }) {
   fileChanged$.value = true;
 
-  const tab = openParts$.value.find(function (i) {
+  const part = openParts$.value.find(function (i) {
     return i.uri === uri;
   });
-  if (tab) {
-    tab.modified = true;
+  if (part) {
+    part.latestContent = content;
+    part.modified = modified;
   }
-  const currentPart = docPackage$.value.parts[activeUri$.value];
-  currentPart.data = content;
 }
 
 function handleSelectedKeysUpdate(keys, options) {
