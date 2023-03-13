@@ -1,6 +1,6 @@
 {
   "name": "tauri-app",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "private": true,
   "dependencies": {
     "@codemirror/commands": "^6.2.1",
