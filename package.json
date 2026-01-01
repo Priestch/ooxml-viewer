@@ -15,7 +15,7 @@
     "@vicons/carbon": "^0.12.0",
     "@vicons/material": "^0.12.0",
     "jszip": "^2.7.0",
-    "naive-ui": "^2.21.1",
+    "naive-ui": "^2.43.2",
     "openxml": "priestch/openxml",
     "sass": "^1.43.5",
     "vkbeautify": "^0.99.3",
@@ -58,5 +58,6 @@
     "prettier": "^2.7.1",
     "simple-git-hooks": "^2.8.0",
     "vite": "^4.1.4"
-  }
+  },
+  "packageManager": "pnpm@9.15.1+sha512.1acb565e6193efbebda772702950469150cf12bcc764262e7587e71d19dc98a423dff9536e57ea44c49bdf790ff694e83c27be5faa23d67e0c033b583be4bfcf"
 }
