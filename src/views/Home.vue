@@ -97,7 +97,7 @@ async function selectFile() {
   display: flex;
   align-items: center;
   justify-content: center;
-  border-right: 1px solid lightgray;
+  border-right: 1px solid var(--color-border);
 
   .column-content {
     width: 100%;
@@ -119,7 +119,7 @@ async function selectFile() {
 
 <style lang="scss">
 .welcome-modal {
-  width: 30%;
+  width: 40%;
 
   .n-card-header {
     display: none;
@@ -128,7 +128,19 @@ async function selectFile() {
 
 @media (max-width: 1600px) {
   .welcome-modal {
+    width: 60%;
+  }
+}
+
+@media (max-width: 1024px) {
+  .welcome-modal {
     width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-modal {
+    width: 95%;
   }
 }
 </style>

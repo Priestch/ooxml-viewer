@@ -220,7 +220,7 @@ function onTabChange(val) {
 }
 
 const treeStyle = {
-  "--n-font-size": "1.2em",
+  "--n-font-size": "var(--text-lg)",
 };
 </script>
 
@@ -234,19 +234,19 @@ const treeStyle = {
 }
 
 .package-tree {
-  padding: 20px 10px;
+  padding: var(--spacing-5) var(--spacing-2);
 }
 
 .part-tabs {
   height: 100%;
 
   ::v-deep(.n-tab-pane) {
-    height: calc(100% - 39px);
+    height: calc(100% - var(--tab-height));
     overflow: auto;
   }
 
   ::v-deep(.n-tabs-tab__close) {
-    margin-left: 8px;
+    margin-left: var(--spacing-2);
   }
 }
 </style>

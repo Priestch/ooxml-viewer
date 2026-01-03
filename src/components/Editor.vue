@@ -28,7 +28,7 @@ const props = defineProps({
 const emit = defineEmits(["updateContent"]);
 
 const largeFontPanel = EditorView.theme({
-  ".cm-panels": { fontSize: "18px", padding: "6px 4px" },
+  ".cm-panels": { fontSize: "var(--text-lg)", padding: "var(--spacing-1) var(--spacing-1)" },
 });
 
 let initialText = "";

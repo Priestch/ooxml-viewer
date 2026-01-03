@@ -59,8 +59,8 @@ onBeforeUnmount(() => {
   }
 
   img {
-    border: 4px solid #fefefe;
-    box-shadow: 0 0 0 1px rgb(10 10 10 / 20%);
+    border: var(--spacing-1) solid var(--color-bg-primary);
+    box-shadow: var(--shadow-md);
 
     &.svg {
       height: 30%;
