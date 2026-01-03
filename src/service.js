@@ -60,19 +60,25 @@ function createService(isDesktop = false) {
       return new Promise(function (resolve, reject) {
         let inputEl = document.createElement("input");
         inputEl.setAttribute("type", "file");
+        inputEl.style.display = "none";
         function handleFileChange(event) {
           const files = event.target.files;
-          const blobUrl = URL.createObjectURL(files[0]);
-          const url = new URL(blobUrl);
-          resolve({
-            filePath: url.pathname.replace(url.origin, "").slice(1),
-            url: blobUrl,
-            filename: files[0].name,
-          });
+          if (files && files.length > 0) {
+            const blobUrl = URL.createObjectURL(files[0]);
+            resolve({
+              filePath: files[0].name,
+              url: blobUrl,
+              filename: files[0].name,
+            });
+            // Clean up
+            document.body.removeChild(inputEl);
+          }
         }
 
         inputEl.setAttribute("accept", inputAccept);
         inputEl.addEventListener("change", handleFileChange);
+        // Append to DOM for better browser compatibility
+        document.body.appendChild(inputEl);
         inputEl.click();
       });
     },
