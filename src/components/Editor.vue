@@ -59,18 +59,22 @@ function createEditorState(data) {
   });
 }
 
-function dispatch(tr) {
-  if (tr.docChanged) {
-    const content = openxml.util.encode_utf8(minXML(tr.newDoc.toJSON().join("\n")));
-    const modified = tr.state.doc.sliceString(0) !== initialText;
-    emit("updateContent", { content, modified });
-  }
-  this.update([tr]);
-}
-
 function createEditorView(data, parent) {
   const state = createEditorState(data);
-  return new EditorView({ state, parent, dispatch });
+  return new EditorView({
+    state,
+    parent,
+    dispatch: (transactions, view) => {
+      view.update(transactions);
+      for (const tr of transactions) {
+        if (tr.docChanged) {
+          const content = openxml.util.encode_utf8(minXML(tr.newDoc.toJSON().join("\n")));
+          const modified = tr.state.doc.sliceString(0) !== initialText;
+          emit("updateContent", { content, modified });
+        }
+      }
+    },
+  });
 }
 
 const editorView$ = ref(null);
