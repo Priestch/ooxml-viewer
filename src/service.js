@@ -1,7 +1,4 @@
-import { open, save } from "@tauri-apps/api/dialog";
 import { createPromise } from "./utils.js";
-import { readBinaryFile, writeBinaryFile } from "@tauri-apps/api/fs";
-import { homeDir } from "@tauri-apps/api/path";
 
 const userHomeDir = createPromise();
 
@@ -12,16 +9,19 @@ const inputAccept = supportedExtensions
   })
   .join(",");
 
-function getFileUseTauri(filename) {
-  return readBinaryFile(filename).then((fileResult) => {
-    return {
-      filename,
-      fileResult,
-    };
-  });
+// Lazy Tauri imports - only loaded when needed
+async function getFileUseTauri(filename) {
+  const { readBinaryFile } = await import("@tauri-apps/api/fs");
+  const fileResult = await readBinaryFile(filename);
+  return {
+    filename,
+    fileResult,
+  };
 }
 
 async function saveFileUseTauri(fileContent) {
+  const { save } = await import("@tauri-apps/api/dialog");
+  const { writeBinaryFile } = await import("@tauri-apps/api/fs");
   const defaultPath = await userHomeDir.promise;
   const exportFilePath = await save({
     defaultPath,
@@ -37,6 +37,7 @@ function createService(isDesktop = false) {
   return {
     async openFileDialog() {
       if (isDesktop) {
+        const { open } = await import("@tauri-apps/api/dialog");
         const dir = await userHomeDir.promise;
         const dialogOptions = {
           defaultPath: dir,
@@ -63,6 +64,12 @@ function createService(isDesktop = false) {
         inputEl.style.display = "none";
         function handleFileChange(event) {
           const files = event.target.files;
+
+          // Clean up input element
+          if (inputEl && inputEl.parentNode) {
+            inputEl.parentNode.removeChild(inputEl);
+          }
+
           if (files && files.length > 0) {
             const blobUrl = URL.createObjectURL(files[0]);
             resolve({
@@ -70,8 +77,9 @@ function createService(isDesktop = false) {
               url: blobUrl,
               filename: files[0].name,
             });
-            // Clean up
-            document.body.removeChild(inputEl);
+          } else {
+            // User cancelled or no file selected
+            resolve(null);
           }
         }
 
@@ -90,8 +98,10 @@ function createService(isDesktop = false) {
     },
     resolveHomeDir() {
       if (window.__TAURI__) {
-        homeDir().then((dir) => {
-          userHomeDir.resolve(dir);
+        import("@tauri-apps/api/path").then(({ homeDir }) => {
+          homeDir().then((dir) => {
+            userHomeDir.resolve(dir);
+          });
         });
       }
     },

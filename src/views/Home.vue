@@ -90,7 +90,9 @@ const modalStyle = {
 
 async function selectFile() {
   const documentQuery = await openFileDialog();
-  router.push({ path: "/document", query: documentQuery });
+  if (documentQuery) {
+    router.push({ path: "/document", query: documentQuery });
+  }
 }
 </script>
 

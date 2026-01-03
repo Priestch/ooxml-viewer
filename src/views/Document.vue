@@ -67,7 +67,6 @@ import {
   NSpace,
   NDivider,
 } from "naive-ui";
-import { sep } from "@tauri-apps/api/path";
 import { FolderFilled } from "@vicons/antd";
 import { Image, Xml } from "@vicons/carbon";
 import openxml from "openxml";
@@ -128,6 +127,7 @@ watchEffect(async () => {
   if (window.__TAURI__) {
     let { filename, fileResult } = await service.getFile({ filename: filePath });
     docPackage$.value = new openxml.OpenXmlPackage(fileResult);
+    const { sep } = await import("@tauri-apps/api/path");
     const pathParts = filename.split(sep);
     addRecord({
       filePath: filename,

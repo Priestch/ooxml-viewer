@@ -1,5 +1,4 @@
 <script setup>
-import { appWindow } from "@tauri-apps/api/window";
 import "./assets/app.css";
 import { onMounted } from "vue";
 import useRecentFiles from "./hooks/useRecentFiles";
@@ -26,10 +25,13 @@ const themeOverrides = {
   },
 };
 
+// Lazy load Tauri API only when running in Tauri
 if (window.__TAURI__) {
-  appWindow.listen("open", async () => {
-    const filePath = await service.openFileDialog();
-    router.push({ path: "/document", query: { filePath } });
+  import("@tauri-apps/api/window").then(({ appWindow }) => {
+    appWindow.listen("open", async () => {
+      const filePath = await service.openFileDialog();
+      router.push({ path: "/document", query: { filePath } });
+    });
   });
 }
 
@@ -43,14 +45,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <n-config-provider :theme-overrides="themeOverrides">
-    <n-global-style />
+  <n-config-provider :theme-overrides="themeOverrides" class="root-layout">
     <router-view></router-view>
   </n-config-provider>
 </template>
 
 <style>
 #app {
+  height: 100%;
+}
+
+.root-layout {
   height: 100%;
 }
 </style>
