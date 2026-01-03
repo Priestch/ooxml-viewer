@@ -82,9 +82,6 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-//.editor-header {
-//  padding: 1em;
-//}
 #editor {
   height: 100%;
   & :deep(.cm-editor) {

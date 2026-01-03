@@ -19,3 +19,13 @@ pre {
   outline: 2px solid var(--color-gray-400);
   outline-offset: 2px;
 }
+
+/* Ensure focus is visible on all interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-gray-400);
+  outline-offset: 2px;
+}

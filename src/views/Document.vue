@@ -4,7 +4,12 @@
       <n-layout-sider :bordered="true" collapse-mode="width" :width="400">
         <n-card siz="small">
           <n-space>
-            <n-button type="primary" :disabled="!fileChanged$" @click="exportAsFile">
+            <n-button
+              type="primary"
+              :disabled="!fileChanged$"
+              @click="exportAsFile"
+              aria-label="Export modified document"
+            >
               Export
             </n-button>
           </n-space>
@@ -216,7 +221,7 @@ function renderSwitcherIcon() {
 }
 
 function onTabChange(val) {
-  console.log("onTabChange", val);
+  // Tab changed
 }
 
 const treeStyle = {

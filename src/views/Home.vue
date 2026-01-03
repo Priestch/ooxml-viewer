@@ -10,8 +10,14 @@
   >
     <n-grid cols="1 800:2" style="min-height: 500px" :item-response="true">
       <n-gi class="left-section">
-        <div class="column-content" @click="selectFile">
-          <n-icon size="40">
+        <div
+          class="column-content"
+          @click="selectFile"
+          role="button"
+          tabindex="0"
+          @keypress.enter="selectFile"
+        >
+          <n-icon size="40" aria-hidden="true">
             <cloud-upload-outlined />
           </n-icon>
           <div>OPEN A FILE</div>
@@ -103,6 +109,11 @@ async function selectFile() {
     width: 100%;
     text-align: center;
     cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--color-gray-400);
+      outline-offset: 2px;
+    }
   }
 }
 
