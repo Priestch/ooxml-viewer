@@ -40,8 +40,9 @@ jobs:
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgtk-3-dev libsoup-2.4-dev libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf || \
-          sudo apt-get install -y libgtk-3-dev libsoup-2.4-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+          # Ubuntu 24.04+ (noble) uses different package names
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev librsvg2-dev patchelf \
+            libayatana-appindicator3-dev librsvg2-dev
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
