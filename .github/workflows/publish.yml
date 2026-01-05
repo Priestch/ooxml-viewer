@@ -40,8 +40,10 @@ jobs:
         if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          # Ubuntu 24.04+ (noble) uses different package names
+          # Try Ubuntu 24.04+ (noble) packages first, then fallback to older versions
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.1-dev librsvg2-dev patchelf \
+            libayatana-appindicator3-dev librsvg2-dev libsoup-3.0-dev \
+            || sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev librsvg2-dev patchelf \
             libayatana-appindicator3-dev librsvg2-dev libsoup-2.4-dev
 
       - uses: pnpm/action-setup@v2
